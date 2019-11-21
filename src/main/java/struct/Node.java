@@ -2,8 +2,10 @@ package struct;
 
 import lombok.Data;
 
+import java.util.List;
+
 @Data
-public class Node<T> {
+public class Node {
 
     /**
      * isFunc = True -> please look at the tree structure, we have Empty Node but it has child node !!
@@ -15,11 +17,15 @@ public class Node<T> {
      *
      */
 
-    private boolean isFunc;
 
     private String type;
 
-    private T value;
+    private String value;
 
-    private Node[] childNodes;
+    private List<Node> childNodes;
+
+    public Node(String type, String value){
+        this.type = type;
+        this.value = value;
+    }
 }

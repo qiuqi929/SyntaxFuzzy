@@ -13,10 +13,16 @@ public class Operator {
      * why we need value? what the operator is? primitive operators such as +-*%/ or method num?
      */
 
-    private String type;
+    private String returnType;
 
     private Rule rule;
 
-    private String value;
+    private String name;
+
+    public Operator (String returnType , Rule rule, String name) {
+        this.returnType = returnType;
+        this.rule = rule;
+        this.name = name;
+    }
 
 }
