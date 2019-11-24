@@ -2,7 +2,7 @@ package utils;
 
 import java.util.Random;
 
-public class NameRandomUtil {
+public class RandomUtil {
 
     /**
      * I suggest that methodName: xxxxMethod. -> Then we can know this is a method and we need to print it as methodName().
@@ -14,14 +14,22 @@ public class NameRandomUtil {
 
     private static final int methodNameLength = 7;
 
-    public static String randomMethodName(){
-        String methodName  = "";
+    public static String randomMethodName() {
+        String methodName = "";
         for (int i = 0; i < methodNameLength; i++) {
             int number = random.nextInt(52);
             methodName += String.valueOf(elements.charAt(number));
         }
         methodName = methodName + "Method";
         return methodName;
+    }
+
+    public static String randomInt() {
+        return randomInt(-100, 100);
+    }
+
+    public static String randomInt(int start, int end) {
+        return end + random.nextInt(end - start) + "";
     }
 
 }

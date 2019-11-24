@@ -1,31 +1,46 @@
 package struct;
 
 import lombok.Data;
+import utils.NodeUtil;
+import utils.RandomUtil;
 
-import java.util.List;
+import java.util.ArrayList;
 
 @Data
 public class Node {
 
-    /**
-     * isFunc = True -> please look at the tree structure, we have Empty Node but it has child node !!
-     *      type = null, value = null. chileNodes = .....;
-     * isFunc = False
-     *      type = statement type for variable/ return type for method , value = the value of double/int/String or Method name
-     *
-     * Or if there has other variables to describe a node? Consider it should be easy to  print it when analysing the tree.
-     *
-     */
-
-
-    private String type;
-
+    private String returnType;
     private String value;
+    private Object[] children;
+    private Rule rule;
 
-    private List<Node> childNodes;
-
-    public Node(String type, String value){
-        this.type = type;
-        this.value = value;
+    public Node(String returnType, Rule rule) {
+        this.returnType = returnType;
+        this.rule = rule;
+        init();
     }
+
+    private void init() {
+        ArrayList<String> typeList = rule.getTypeList();
+        int size = typeList.size();
+        children = new Object[size];
+        for (int i = 0; i < size; i++) {
+            String type = typeList.get(i);
+            // TODO: 除了直接获取字面常量的类型, 都应修改成对应类型的Node
+            // TODO: 把所有的Type改成枚举类型
+            // TODO: 增添自定类
+            if ("boolean".equals(type)) {
+                children[i] = NodeUtil.newBoolNode();
+            } else if ("object".equals(type)) {
+                children[i] = "System.out.println(\"Hello World\");";
+            } else if ("int".equals(type)) {
+                children[i] = RandomUtil.randomInt();
+            }
+        }
+    }
+
+    public String toString() {
+        return rule.format(children);
+    }
+
 }

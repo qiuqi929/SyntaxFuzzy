@@ -2,18 +2,21 @@ package struct;
 
 import lombok.Data;
 
+import java.util.ArrayList;
+
 @Data
 public class Rule {
 
+    private ArrayList<String> typeList;
+    private String format;
 
-    /**
-     * Len(typeList) = 0   - > no parameter
-     * Len(typeList) = null  - > no limit.
-     */
-
-    String[] typeList;
-
-    public Rule(String[] typeList){
+    public Rule(ArrayList<String> typeList, String format) {
         this.typeList = typeList;
+        this.format = format;
     }
+
+    public String format(Object... objects) {
+        return String.format(format, objects);
+    }
+
 }
