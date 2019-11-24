@@ -9,14 +9,20 @@ import java.util.ArrayList;
 @Data
 public class Node {
 
-    private String returnType;
-    private String value;
-    private Object[] children;
     private Rule rule;
+    private Object[] children;
+    private ElementPool pool;
 
-    public Node(String returnType, Rule rule) {
-        this.returnType = returnType;
+    public Node(Rule rule) {
+        this(null, rule);
+    }
+
+    public Node(Node parent, Rule rule) {
         this.rule = rule;
+        this.pool = new ElementPool();
+        // 深拷贝父类的变量池来构建自身节点的变量池
+        if (null != parent)
+            pool.getTypeToVariables().putAll(parent.getPool().getTypeToVariables());
         init();
     }
 
@@ -34,6 +40,7 @@ public class Node {
             } else if ("object".equals(type)) {
                 children[i] = "System.out.println(\"Hello World\");";
             } else if ("int".equals(type)) {
+                // 此处应不仅有字面常量值, 还可以从已有的int类型变量中选取一个
                 children[i] = RandomUtil.randomInt();
             }
         }

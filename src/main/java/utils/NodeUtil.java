@@ -13,7 +13,7 @@ public class NodeUtil {
         whileTypeList.add("object");
         String whileFormat = "while ( %s ) { %s }";
         Rule whileRule = new Rule(whileTypeList, whileFormat);
-        Node node = new Node("void", whileRule);
+        Node node = new Node(whileRule);
         return node;
     }
 
@@ -23,7 +23,7 @@ public class NodeUtil {
         boolTypeList.add("int");
         String boolFormat = "%s < %s";
         Rule boolRule = new Rule(boolTypeList, boolFormat);
-        Node node = new Node("boolean", boolRule);
+        Node node = new Node(boolRule);
         return node;
     }
 

@@ -24,12 +24,12 @@ public class RandomUtil {
         return methodName;
     }
 
-    public static String randomInt() {
+    public static int randomInt() {
         return randomInt(-100, 100);
     }
 
-    public static String randomInt(int start, int end) {
-        return end + random.nextInt(end - start) + "";
+    public static int randomInt(int start, int end) {
+        return start + random.nextInt(end - start);
     }
 
 }

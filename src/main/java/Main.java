@@ -8,7 +8,6 @@ public class Main {
 
         Node whileNode = NodeUtil.newWhileNode();
         System.out.println(whileNode);
-
     }
 
 }
