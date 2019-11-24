@@ -30,6 +30,7 @@ public class NodeUtil {
     // 或者利用字面常量值进行初始化
     // 此处的结构设计很差, 期望不进行传参, 和其他的初始化节点保持一致
     // 但不要紧, 先实现了功能再说
+    // 突然想到这里可以用parentNode的pool对这个进行初始化, 先记着
     public static Node newDeclareNode(VariablePool pool) {
         ArrayList<String> declareTypeList = new ArrayList<>();
         String type = RandomUtil.randomType();
