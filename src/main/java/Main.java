@@ -6,9 +6,6 @@ public class Main {
     public static void main(String[] args) {
         Node whileNode = NodeUtil.newWhileNode();
         System.out.println(whileNode);
-
-        Node declareNode = NodeUtil.newDeclareNode(null);
-        System.out.println(declareNode);
     }
 
 }

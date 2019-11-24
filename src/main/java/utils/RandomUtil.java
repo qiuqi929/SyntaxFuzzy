@@ -4,10 +4,6 @@ import java.util.Random;
 
 public class RandomUtil {
 
-    /**
-     * I suggest that methodName: xxxxMethod. -> Then we can know this is a method and we need to print it as methodName().
-     */
-
     private static Random random = new Random();
 
     private static final int methodNameLength = 7;
@@ -48,21 +44,23 @@ public class RandomUtil {
         return typeList[random.nextInt(typeList.length)];
     }
 
-    public static String randomValue(String type) {
+    public static Object randomValue(String type) {
         if ("int".equals(type)) {
-            return random.nextInt() + "";
+            return random.nextInt();
         } else if ("short".equals(type)) {
-            return randomInt(-32768, 32767) + "";
+            return randomInt(-32768, 32767);
         } else if ("long".equals(type)) {
             return random.nextLong() + "L";
         } else if ("byte".equals(type)) {
-            return randomInt(-128, 127) + "";
+            return randomInt(-128, 127);
         } else if ("float".equals(type)) {
-            return random.nextFloat() + "";
+            return random.nextFloat();
         } else if ("double".equals(type)) {
-            return random.nextDouble() + "";
+            return random.nextDouble();
         } else if ("boolean".equals(type)) {
-            return "true";
+            return true;
+        } else if ("String".equals(type)) {
+            return "\"" + randomName() + "\"";
         }
         return null;
     }

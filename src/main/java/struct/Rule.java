@@ -18,6 +18,11 @@ public class Rule {
     }
 
     public String format(Object... objects) {
+        for (Object object : objects) {
+            if (null == object) {
+                return "";
+            }
+        }
         return String.format(format, objects);
     }
 

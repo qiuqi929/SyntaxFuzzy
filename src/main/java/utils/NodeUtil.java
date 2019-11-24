@@ -11,8 +11,13 @@ public class NodeUtil {
     public static Node newWhileNode() {
         ArrayList<String> whileTypeList = new ArrayList<>();
         whileTypeList.add("boolean");
-        whileTypeList.add("object");
-        String whileFormat = "while ( %s ) { %s }";
+        int statementNum = RandomUtil.randomInt(3, 5);
+        String whileFormat = "while ( %s ) { ";
+        for (int i = 0; i < statementNum; i++) {
+            whileTypeList.add("object");
+            whileFormat += "%s; ";
+        }
+        whileFormat += " }";
         Rule whileRule = new Rule(whileTypeList, "while", whileFormat);
         return new Node(whileRule);
     }
@@ -31,10 +36,8 @@ public class NodeUtil {
     // 此处的结构设计很差, 期望不进行传参, 和其他的初始化节点保持一致
     // 但不要紧, 先实现了功能再说
     // 突然想到这里可以用parentNode的pool对这个进行初始化, 先记着
-    public static Node newDeclareNode(Pool pool) {
+    public static Node newDeclareNode(String type, String name) {
         ArrayList<String> declareTypeList = new ArrayList<>();
-        String type = RandomUtil.randomType();
-        String name = RandomUtil.randomName();
         declareTypeList.add(type);
         String declareFormat = type + " " + name + " = %s";
         Rule declareRule = new Rule(declareTypeList, "declare", declareFormat);
