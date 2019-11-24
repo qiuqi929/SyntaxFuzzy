@@ -61,8 +61,10 @@ public class RandomUtil {
             return random.nextFloat() + "";
         } else if ("double".equals(type)) {
             return random.nextDouble() + "";
+        } else if ("boolean".equals(type)) {
+            return "true";
         }
-        return "null";
+        return null;
     }
 
 }
