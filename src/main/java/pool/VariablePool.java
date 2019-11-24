@@ -1,4 +1,4 @@
-package struct;
+package pool;
 
 import lombok.Data;
 import utils.RandomUtil;
@@ -7,11 +7,11 @@ import java.util.ArrayList;
 import java.util.HashMap;
 
 @Data
-public class ElementPool {
+public class VariablePool {
 
     private HashMap<String, ArrayList<String>> typeToVariables;
 
-    public ElementPool() {
+    public VariablePool() {
         this.typeToVariables = new HashMap<>();
     }
 
@@ -21,6 +21,10 @@ public class ElementPool {
         return new ArrayList<>();
     }
 
+    /**
+     * @param type 所需求的变量类型
+     * @return 如果pool中已经有了同种类型的变量, 则直接随机返回一个变量名, 否则将随机地返回一个字面常量值
+     */
     public String getRandomVariableByType(String type) {
         if (!typeToVariables.containsKey(type))
             return null;
