@@ -12,12 +12,12 @@ public class NodeUtil {
         ArrayList<String> whileTypeList = new ArrayList<>();
         whileTypeList.add("boolean");
         int statementNum = RandomUtil.randomInt(3, 5);
-        String whileFormat = "while ( %s ) { ";
+        String whileFormat = "while ( %s ) {%n";
         for (int i = 0; i < statementNum; i++) {
             whileTypeList.add("object");
-            whileFormat += "%s; ";
+            whileFormat += "\t%s;%n";
         }
-        whileFormat += " }";
+        whileFormat += "}";
         Rule whileRule = new Rule(whileTypeList, "while", whileFormat);
         return new Node(whileRule);
     }

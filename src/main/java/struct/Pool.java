@@ -9,12 +9,15 @@ import java.util.HashMap;
 @Data
 public class Pool {
 
+    // 这三个后期应该能整合到一起, 不然会有大量重复的代码
     private HashMap<String, ArrayList<Variable>> variables;
     private HashMap<String, ArrayList<Function>> functions;
+    private HashMap<String, ArrayList<Operator>> operators;
 
     public Pool() {
         this.variables = new HashMap<>();
         this.functions = new HashMap<>();
+        this.operators = new HashMap<>();
     }
 
     public ArrayList<Variable> getVariablesByType(String type) {
@@ -26,6 +29,13 @@ public class Pool {
     public ArrayList<Function> getFunctionsByType(String type) {
         if (functions.containsKey(type))
             return functions.get(type);
+        return new ArrayList<>();
+    }
+
+    public ArrayList<Operator> getOperatorByType(String type) {
+        if (operators.containsKey(type)) {
+            return operators.get(type);
+        }
         return new ArrayList<>();
     }
 
@@ -52,6 +62,13 @@ public class Pool {
         return functionList.get(RandomUtil.randomInt(0, functionList.size()));
     }
 
+    public Operator getRandomOperatorByType(String type) {
+        if (!functions.containsKey(type))
+            return null;
+        ArrayList<Operator> operatorList = operators.get(type);
+        return operatorList.get(RandomUtil.randomInt(0, operatorList.size()));
+    }
+
     public void addVariable(String type, String name) {
         addVariable(type, new Variable(type, name));
     }
@@ -76,5 +93,7 @@ public class Pool {
             functions.put(type, new ArrayList<>());
         functions.get(type).add(function);
     }
+
+    // operators应该是预定义好的, 因此这里没有addOperator的操作
 
 }
