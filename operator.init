@@ -1,0 +1,23 @@
+# 文件格式
+# 在读取的时候, 若碰到行首为# 则表示注释
+# 不同的操作符之间以空格隔开
+# -----------------------------------------
+# | returnType
+# | operator[0] operator[1] ... operator[n]
+# | args[0] args[1] ... args[2]
+
+int
++
+int int
+
+int
+-
+int int
+
+int
+*
+int int
+
+int
+/
+int int
