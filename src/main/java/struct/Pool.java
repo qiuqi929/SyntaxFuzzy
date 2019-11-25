@@ -18,6 +18,18 @@ public class Pool {
         this.variables = new HashMap<>();
         this.functions = new HashMap<>();
         this.operators = new HashMap<>();
+
+        //TODO: 从文件中初始化变量
+        //TODO: 从文件中初始化方法
+        ArrayList<Operator> ops = Operator.initOperators();
+        for (Operator operator : ops) {
+            String returnType = operator.getReturnType();
+            if (!operators.containsKey(returnType)) {
+                operators.put(returnType, new ArrayList<>());
+            }
+            operators.get(returnType).add(operator);
+        }
+
     }
 
     public ArrayList<Variable> getVariablesByType(String type) {
@@ -63,7 +75,7 @@ public class Pool {
     }
 
     public Operator getRandomOperatorByType(String type) {
-        if (!functions.containsKey(type))
+        if (!operators.containsKey(type))
             return null;
         ArrayList<Operator> operatorList = operators.get(type);
         return operatorList.get(RandomUtil.randomInt(0, operatorList.size()));
