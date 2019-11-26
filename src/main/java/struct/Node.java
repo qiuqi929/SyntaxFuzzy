@@ -66,21 +66,20 @@ public class Node {
                 Iterator<String> iterator1 = operator.getArgumentList().iterator();
                 Iterator<String> iterator2 = operator.getOperatorList().iterator();
                 while (iterator1.hasNext() || iterator2.hasNext()) {
-                    stringBuilder.append(' ');
                     if (iterator1.hasNext()) {
-                        stringBuilder.append("%s");
+                        stringBuilder.append(" %s");
                         iterator1.next();
                     }
                     if (iterator2.hasNext()) {
                         stringBuilder.append(iterator2.next());
                     }
-                    stringBuilder.append(' ');
                 }
                 Rule rule = new Rule(operator.getArgumentList(), RandomUtil.randomName(), stringBuilder.toString());
                 value = new Node(rule);
             }
 
             // 如果到这里value还是null, 表示目前没有一个合适的类型, 那么就随便来点变量的定义吧...
+            // 这种情况通常会发生在type == "statement"的时候
             if (value == null) {
                 type = RandomUtil.randomType();
                 String name = RandomUtil.randomName();
