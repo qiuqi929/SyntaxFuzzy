@@ -12,8 +12,8 @@ public class NodeUtil {
         // TODO: 当前还不能避免while(false)情况的出现
         ArrayList<String> whileTypeList = new ArrayList<>();
         whileTypeList.add("boolean");
-        int statementNum = RandomUtil.randomInt(3, 5);
-        String whileFormat = "while (%s) {%n";
+        int statementNum = RandomUtil.randomInt(1, 50);
+        String whileFormat = "while ( %s ) {%n";
         for (int i = 0; i < statementNum; i++) {
             whileTypeList.add("object");
             whileFormat += "\t%s;%n";
@@ -37,12 +37,12 @@ public class NodeUtil {
     // 此处的结构设计很差, 期望不进行传参, 和其他的初始化节点保持一致
     // 但不要紧, 先实现了功能再说
     // 突然想到这里可以用parentNode的pool对这个进行初始化, 先记着
-    public static Node newDeclareNode(String type, String name) {
+    public static Node newDeclareNode(Node parent, String type, String name) {
         ArrayList<String> declareTypeList = new ArrayList<>();
         declareTypeList.add(type);
-        String declareFormat = type + " " + name + "=%s";
+        String declareFormat = type + " " + name + " = %s";
         Rule declareRule = new Rule(declareTypeList, "declare", declareFormat);
-        return new Node(declareRule);
+        return new Node(parent, declareRule);
     }
 
 
