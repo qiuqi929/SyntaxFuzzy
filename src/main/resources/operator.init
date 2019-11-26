@@ -1,0 +1,145 @@
+#########################################################################
+###                 returnType
+###                 format
+###                 argType1, argType2, ..., argType3
+#########################################################################
+
+
+#########################################################################
+###                 最基本的 +, -, *, /
+#########################################################################
+
+int
+%s
+int
+
+int
+%s + %s
+int int
+
+int
+%s + %s
+int int
+
+int
+%s - %s
+int int
+
+int
+%s * %s
+int int
+
+int
+%s / %s
+int int
+
+int
+%s + %s
+int variable
+
+int
+%s + %s
+int variable
+
+int
+%s - %s
+int variable
+
+int
+%s * %s
+int variable
+
+int
+%s / %s
+int variable
+
+int
+%s + %s
+variable int
+
+int
+%s + %s
+variable int
+
+int
+%s - %s
+variable int
+
+int
+%s * %s
+variable int
+
+int
+%s / %s
+variable int
+
+double
+%s + %s
+double double
+
+double
+%s + %s
+double double
+
+double
+%s - %s
+double double
+
+double
+%s * %s
+double double
+
+double
+%s / %s
+double double
+
+double
+%s + %s
+double variable
+
+double
+%s + %s
+double variable
+
+double
+%s - %s
+double variable
+
+double
+%s * %s
+double variable
+
+double
+%s / %s
+double variable
+
+double
+%s + %s
+variable double
+
+double
+%s - %s
+variable double
+
+double
+%s * %s
+variable int
+
+double
+%s / %s
+variable double
+
+string
+%s + %s
+string string
+
+string
+%s + %s
+string int
+
+#########################################################################
+### 这种操作符表示赋值语句, 应给予特殊处理
+#########################################################################
+variable
+%s %s = %s
+type string type

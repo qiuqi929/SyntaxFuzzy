@@ -47,7 +47,7 @@ public class Node {
             this.returnType = "int";
         }
         if (operator == null) {
-            this.operator = new Operator("literalConstant", "%s", null);
+            this.operator = pool.getOperatorByType(this.returnType);
         }
     }
 
@@ -78,8 +78,8 @@ public class Node {
         ArrayList<Node> candidates = new ArrayList<>();
 
         // 1. 直接随机一个常量
-        Node child = new Node(this, type, new Operator("literalConstant", "%s", null));
-        candidates.add(child);
+        if (type.equals("byte") || type.equals("short") || type.equals("int") || type.equals("long") || type.equals("float") || type.equals("double") || type.equals("boolean"))
+            candidates.add(new Node(this, type, new Operator("literalConstant", "%s", null)));
 
         // 2. 从相同类型的变量中随机挑选一个
         Variable variable = pool.getVariableByType(type);

@@ -42,7 +42,6 @@ public class RandomUtil {
         return random.nextDouble() + "";
     }
 
-
     public static String randomValue(String type) {
         switch (type) {
             case "string":

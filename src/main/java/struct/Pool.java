@@ -56,7 +56,14 @@ public class Pool {
         if (!operators.containsKey(type))
             return null;
         ArrayList<Operator> ops = operators.get(type);
-        return ops.get(new Random().nextInt(ops.size()));
+        ArrayList<Operator> tmp = new ArrayList<>();
+        if (!variables.containsKey(type)) {
+            ops.forEach(operator -> {
+                if (!operator.getArgTypeList().contains("variable"))
+                    tmp.add(operator);
+            });
+        }
+        return tmp.get(new Random().nextInt(tmp.size()));
     }
 
 }
