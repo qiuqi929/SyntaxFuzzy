@@ -68,7 +68,7 @@ public class Node {
                 Iterator<String> iterator2 = operator.getOperatorList().iterator();
                 while (iterator1.hasNext() || iterator2.hasNext()) {
                     if (iterator1.hasNext()) {
-                        stringBuilder.append(" %s ");
+                        stringBuilder.append("%s");
                         iterator1.next();
                     }
                     if (iterator2.hasNext()) {

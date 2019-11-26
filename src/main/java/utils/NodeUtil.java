@@ -13,7 +13,7 @@ public class NodeUtil {
         ArrayList<String> whileTypeList = new ArrayList<>();
         whileTypeList.add("boolean");
         int statementNum = RandomUtil.randomInt(3, 5);
-        String whileFormat = "while ( %s ) {%n";
+        String whileFormat = "while (%s) {%n";
         for (int i = 0; i < statementNum; i++) {
             whileTypeList.add("object");
             whileFormat += "\t%s;%n";
@@ -40,7 +40,7 @@ public class NodeUtil {
     public static Node newDeclareNode(String type, String name) {
         ArrayList<String> declareTypeList = new ArrayList<>();
         declareTypeList.add(type);
-        String declareFormat = type + " " + name + " = %s";
+        String declareFormat = type + " " + name + "=%s";
         Rule declareRule = new Rule(declareTypeList, "declare", declareFormat);
         return new Node(declareRule);
     }
