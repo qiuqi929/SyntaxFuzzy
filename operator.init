@@ -62,3 +62,6 @@ boolean
 >
 int int
 
+String
++
+String String

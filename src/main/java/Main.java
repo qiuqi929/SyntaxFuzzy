@@ -1,5 +1,4 @@
 import struct.Node;
-import struct.Operator;
 import utils.NodeUtil;
 
 public class Main {

@@ -54,7 +54,7 @@ public class RandomUtil {
         } else if ("byte".equals(type)) {
             return randomInt(-128, 127);
         } else if ("float".equals(type)) {
-            return random.nextFloat();
+            return random.nextFloat() + "f";
         } else if ("double".equals(type)) {
             return random.nextDouble();
         } else if ("boolean".equals(type)) {

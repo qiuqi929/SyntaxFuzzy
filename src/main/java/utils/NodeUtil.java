@@ -9,6 +9,7 @@ import java.util.ArrayList;
 public class NodeUtil {
 
     public static Node newWhileNode() {
+        // TODO: 当前还不能避免while(false)情况的出现
         ArrayList<String> whileTypeList = new ArrayList<>();
         whileTypeList.add("boolean");
         int statementNum = RandomUtil.randomInt(3, 5);
