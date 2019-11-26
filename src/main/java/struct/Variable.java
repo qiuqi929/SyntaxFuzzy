@@ -1,22 +1,14 @@
 package struct;
 
+import lombok.AllArgsConstructor;
 import lombok.Data;
 
 @Data
+@AllArgsConstructor
 public class Variable {
 
-    String type;
-    String name;
-    boolean init;
-
-    public Variable(String type, String name) {
-        this(type, name, false);
-    }
-
-    public Variable(String type, String name, boolean init) {
-        this.type = type;
-        this.name = name;
-        this.init = init;
-    }
+    private String type;
+    private String name;
+    private String value;
 
 }

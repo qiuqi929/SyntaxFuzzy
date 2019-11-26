@@ -1,67 +1,33 @@
-# 文件格式
-# 在读取的时候, 若碰到行首为# 则表示注释
-# 不同的操作符之间以空格隔开
-# -----------------------------------------
-# | returnType
-# | operator[0] operator[1] ... operator[n]
-# | args[0] args[1] ... args[2]
+
+
+byte
+++
+variable
+
+short
+++
+variable
 
 int
-+
-int int
+++
+variable
+
+long
+++
+variable
+
+byte
+--
+variable
+
+short
+--
+variable
 
 int
--
-int int
+--
+variable
 
-int
-*
-int int
-
-int
-/
-int int
-
-double
-+
-double double
-
-double
--
-double double
-
-double
-*
-double double
-
-double
-/
-double double
-
-double
-+
-int double
-
-double
--
-int double
-
-double
-*
-int double
-
-double
-/
-int double
-
-boolean
-<
-int int
-
-boolean
->
-int int
-
-String
-+
-String String
+long
+--
+variable
