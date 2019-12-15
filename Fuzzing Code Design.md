@@ -22,7 +22,7 @@ Fuzzing Code Design
    >
    > BlockOperator: 循环块(while/for/..), 选择块(if/ else/ ..).
    >
-   > Method Operator: Method(parameter1, parameter2, ..), primitive pool: + - * %
+   > Method struct.Operator: Method(parameter1, parameter2, ..), primitive pool: + - * %
    >
    > 为什么这么分类呢? 考虑到循环块较为特殊, 它的rule一般为boolean语句+special block. 如果对它做约束处理, 那么rule中的typelist就是[boolean,special block], 那我们是不是又要对special block做一个处理呢? 因为遇到它时代表后面可以添加无数语句... (我们不得不这么考虑, 因为它必要的boolean设计及special block, 而它除此外, 没有必要的request Type list. 这会是rule非常单一, 且在同层内多重处理会变得麻烦. )
    >
@@ -32,19 +32,19 @@ Fuzzing Code Design
    >
    > 简单来说就是 对它们两种类型的约束处理是不一样的 ! 
 
-   - variables lists : every variable packets as a Node. 
+   - variables lists : every variable packets as a struct.Node. 
 
    > 后面看Node作为一棵树的节点它能够提供什么信息.
 
-   - Block pool lists: packet as a Node. 
+   - Block pool lists: packet as a struct.Node. 
 
      - **iteration: step 3, 4.** (We can count the number of nested...)
 
-   - Method pool lists: packet as a Node .
+   - Method pool lists: packet as a struct.Node .
 
      三类: 每类都可以进行循环操作处理list中的每一个元素. (具体如何处理看实现)
 
-5. May be random or choice a return ??? (return Type for this Operator)
+5. May be random or choice a return ??? (return Type for this struct.Operator)
 
 > 现在我们创建了个一个有method name的子树, 我们可以将该method添加到MethodOperator Pool中, 可以被其他的方法调用. 
 
@@ -53,7 +53,7 @@ Fuzzing Code Design
 > 具体分析一下怎么设计程序框架: interface, abstract, implement method, enum, class ..
 
 ````
-class Node{
+class struct.Node{
 	boolean isFunc;
 	// 这个变量可以让我们知道应该从node中找到哪些信息, 比如它如果是一个function, 它本身是空的,但它有子节点, 它的一个子节点是operator name. 如果它不是function, 那么它会记录type, value. 这个我们可以根据三个类型再进行考虑.
 	String Type; 
@@ -63,7 +63,7 @@ class Node{
 	// variable本身有name.
 	T Value;
 	// Node记载了当前的值. 
-	Node[];
+	struct.Node[];
 	// 子节点
 }
 ````
@@ -71,9 +71,9 @@ class Node{
 
 
 ```
-class Operator{
+class struct.Operator{
 	String Type; // String, integer, char.....
-	Rule rule;
+	struct.Rule rule;
 	String value; // pool: {} +-*/% < > = ..
 	//不care value执行的操作: 根据树输出java code 文本文档... (It's string!)
 }
@@ -101,7 +101,7 @@ class TypeOperatorDict{
 ```
 
 ```
-class Rule{
+class struct.Rule{
 	String[] Typelist;
 	getallTypes;
 }

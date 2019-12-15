@@ -17,7 +17,7 @@ public class Node {
     private String returnType;
 
     /**
-     * Pool, 一个假的数据库, 可以通过它来查询各种当前保存的值或变量
+     * struct.pool, 一个假的数据库, 可以通过它来查询各种当前保存的值或变量
      */
     private Pool pool;
 
