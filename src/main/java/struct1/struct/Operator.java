@@ -17,9 +17,9 @@ public class Operator {
         this.format = format;
     }
 
-    public Operator (String returnType, Rule rule, String name) {
-        this.returnType = returnType;
-        this.rule = rule;
-        this.name = name;
-    }
+//    public Operator (String returnType, Rule rule, String name) {
+//        this.returnType = returnType;
+//        this.rule = rule;
+//        this.name = name;
+//    }
 }

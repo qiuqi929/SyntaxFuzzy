@@ -1,29 +1,36 @@
 package pool;
 
+import initial.Initialize;
 import struct.Operator;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
-public class OperatorPool {
+public class OperatorPool implements Pool<Operator>{
 
-    List<Operator> operatorPool;
+    private List<Operator> operatorPool;
 
-    private Random random = new Random();
+    private Random random = Initialize.random;
 
-    public void addElement (Operator operator) {
-        operatorPool.add(operator);
-    }
-
-    // random operator except special block
-    public Operator randomElement() {
-        int randomInt = random.nextInt(operatorPool.size()-1) + 1;
-        return operatorPool.get(randomInt);
+    public OperatorPool() {
+        operatorPool = new ArrayList<>();
     }
 
     public List<Operator> getPoolList() {
         return operatorPool;
     }
+
+    public void addElement (Operator operator) {
+        operatorPool.add(operator);
+    }
+
+    // random an operator except special block
+    public Operator randomElement() {
+        int randomInt = random.nextInt(operatorPool.size()-1) + 1;
+        return operatorPool.get(randomInt);
+    }
+
 
     public Operator getSpecialBlock () {
         return operatorPool.get(0);

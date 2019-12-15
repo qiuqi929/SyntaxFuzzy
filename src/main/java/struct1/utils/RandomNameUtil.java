@@ -1,10 +1,12 @@
 package utils;
 
+import initial.Initialize;
+
 import java.util.Random;
 
-public class RandomName {
+public class RandomNameUtil {
 
-    private static Random random = new Random();
+    private static Random random = Initialize.random;
 
     private static String elements = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ";
 
@@ -30,7 +32,5 @@ public class RandomName {
         }
         return variableName;
     }
-
-
 
 }

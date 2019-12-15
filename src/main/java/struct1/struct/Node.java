@@ -8,18 +8,32 @@ import java.util.List;
 
 @Data
 public class Node {
-    String value;
     Variable variable;
     Operator operator;
     List<Node> childNode;
     Node parent;
+    String value;
+    String type;
+
+    /**
+     * NULL Node
+     */
+    public Node(Node parent) {
+        childNode = new ArrayList<>();
+        this.parent = parent;
+    }
+
+    public void addChild (Node child) {
+        childNode.add(child);
+    }
 
     /**
      * Constant value Node
      * @param value
      * @param parent
      */
-    public Node (String value, Node parent) {
+    public Node (String type, String value, Node parent) {
+        this.type = type;
         this.value = value;
         this.parent = parent;
     }
@@ -42,18 +56,6 @@ public class Node {
     public Node (Variable variable, Node parent) {
         this.variable = variable;
         this.parent = parent;
-    }
-
-    /**
-     * NULL Node
-     */
-    public Node(Node parent) {
-        childNode = new ArrayList<>();
-        this.parent = parent;
-    }
-
-    public void addChild (Node child) {
-        childNode.add(child);
     }
 
 }
