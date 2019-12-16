@@ -26,7 +26,7 @@ public class MakeTree {
 
     private static final int operatorThresholdSize = 8;
 
-    public Node generateMethod() {
+    public static Node generateMethod() {
         Node headNode = new Node(null);
         // Maintain a variablePool
         VariablePool variablePool = new VariablePool();
@@ -41,7 +41,7 @@ public class MakeTree {
         return headNode;
     }
 
-    public void declareMethod (Node parent, VariablePool variablePool) {
+    public static void declareMethod (Node parent, VariablePool variablePool) {
         // Random the Method Name and return Type. Package it into ONE Node.
         String methodName = RandomNameUtil.randomMethodName();
         String returnType = RandomTypeUtil.randomReturnType();
@@ -62,13 +62,12 @@ public class MakeTree {
         operatorPool.addElement(operator);
     }
 
-    public void makeBlock (Node nullParent, VariablePool upVariablePool) {
+    public static void makeBlock (Node nullParent, VariablePool upVariablePool) {
         // copy the variable list to a new variablePool
         VariablePool variablePool = new VariablePool(upVariablePool.getPoolList());
         // handle a block operator
         Operator blockOperator = OperatorUtil.getBlockOperator();
-        OperatorUtil.handleOperator(nullParent, blockOperator);
-
+        nullParent.addChild(new Node(blockOperator, nullParent));
         // Random the variable. Package these variable into Node and connect to parent.
         // Add these variable into variablePool.
         int variableThreshold = random.nextInt(variableThresholdSize);
@@ -81,9 +80,7 @@ public class MakeTree {
         for (int i = 0; i < operatorThreshold; i++) {
             Operator operator = OperatorUtil.randomOperator();
             Node nullNode = new Node(nullParent);
-            OperatorUtil.handleOperator(nullParent, operator);
+            OperatorUtil.handleOperator(nullNode, operator, variablePool);
         }
     }
-
-
 }

@@ -21,6 +21,7 @@ public class Initialize {
 
     public static void initialTypePool() {
 
+
     }
 
     public static void initialOperatorPool() {
