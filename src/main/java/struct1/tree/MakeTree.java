@@ -54,7 +54,7 @@ public class MakeTree {
         for (int i = 0; i < parameterThreshold; i++) {
             Variable variable = VariableUtil.RandomVariable();
             rule.addElement(variable.getType());
-            VariableUtil.handleVarible(parent, variable, variablePool);
+            VariableUtil.handleVariable(parent, variable, variablePool);
         }
         // package the method as an operator
         Operator operator = new Operator(returnType, rule, methodName);
@@ -62,6 +62,15 @@ public class MakeTree {
         operatorPool.addElement(operator);
     }
 
+    /**
+     * Consider: assign -> we don't need to care about the variable value. And the change of the value.
+     *                     But we need to print it! And sometimes the value maybe an operator such as "1+3".
+     *                     How can we put it in the tree? If we put in variable, the value may change.
+     *                     Maybe we can put it in the Node -> value.
+     *                     The constant has type & value. But variable only has value.
+     * @param nullParent
+     * @param upVariablePool
+     */
     public static void makeBlock (Node nullParent, VariablePool upVariablePool) {
         // copy the variable list to a new variablePool
         VariablePool variablePool = new VariablePool(upVariablePool.getPoolList());
@@ -73,7 +82,7 @@ public class MakeTree {
         int variableThreshold = random.nextInt(variableThresholdSize);
         for (int i = 0; i < variableThreshold; i++) {
             Variable variable = VariableUtil.RandomVariable();
-            VariableUtil.handleVarible(nullParent, variable, variablePool);
+            VariableUtil.handleVariable(nullParent, variable, variablePool);
         }
         // Random the operators. Package these operator into Node and connect to parent
         int operatorThreshold = random.nextInt(operatorThresholdSize);

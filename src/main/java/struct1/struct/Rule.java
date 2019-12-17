@@ -14,12 +14,11 @@ public class Rule {
         typelist = new ArrayList<>();
     }
 
-
     public void addElement(String type) {
         typelist.add(type);
     }
 
-    public Rule(ArrayList<String> typelist) {
+    public Rule(List<String> typelist) {
         this.typelist = typelist;
     }
 

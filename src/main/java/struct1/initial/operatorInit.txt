@@ -1,0 +1,12 @@
+int
+int int
+%s + %s
+
+short
+short short
+%s + %s
+
+long
+long long
+%s + %s
+

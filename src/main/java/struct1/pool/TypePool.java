@@ -30,9 +30,10 @@ public class TypePool implements Pool<String>{
         return typePool.get(randomInt);
     }
 
-    // random an element except void
+
+    // random an element except void. The first element is void
     public String randomElementExceptVoid() {
-        int randomInt = random.nextInt(typePool.size());
+        int randomInt = random.nextInt(typePool.size() - 1) + 1;
         return typePool.get(randomInt);
     }
 

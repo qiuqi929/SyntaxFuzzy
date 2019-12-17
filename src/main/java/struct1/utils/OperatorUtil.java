@@ -18,11 +18,20 @@ public class OperatorUtil {
 
     private static Random random = Initialize.random;
 
+    /**
+     * Random an operator except special operator (block)
+     * It may while/ for/ if ...
+     * @return
+     */
     // random operator except block
     public static Operator randomOperator () {
         return operatorPool.randomElement();
     }
 
+    /**
+     * Get special operator -> block operator
+     * @return
+     */
     public static Operator getBlockOperator () {
         return operatorPool.getSpecialBlock();
     }
@@ -31,6 +40,17 @@ public class OperatorUtil {
 
     private static final double operatorProbability = 0.2;
 
+    /**
+     * Handle the operator which may call in the block or call in the function parameter.
+     * Consider: If the operator call in the function parameter. It must have return type!
+     *                    And the operator is a simple function instead of while/for/if/etc
+     *           If the operator call in the block. Only CALL in the BLOCK, it may call operator while/for/if/etc
+     *                    Those operators(while/for/if..) have special types(block/(do)while/else..) in the rule typelist -> Special handling
+     *                    If there is a block. Call makeBlock method! Then operator while/for/if/etc will only call in the block.
+     * @param nullParent
+     * @param operator
+     * @param variablePool
+     */
     public static void handleOperator(Node nullParent, Operator operator, VariablePool variablePool) {
         // add operator as a child
         nullParent.addChild(new Node(operator, nullParent));
@@ -39,8 +59,9 @@ public class OperatorUtil {
         List<String> typelist = DictionariesUtil.getTypesByRule(rule);
 
         for (int i = 0; i < typelist.size(); i++) {
-            // handle each type: choose a variable/ operator/ constant.
+            // handle each type in the rule.
             String type = typelist.get(i);
+            // special handling: the special type (example: while(Rule: boolean block), if(boolean block else block))
             if (type.equals("block")){
                 Node nullNode = new Node(nullParent);
                 MakeTree.makeBlock(nullNode, variablePool);
@@ -50,8 +71,9 @@ public class OperatorUtil {
                 nullParent.addChild(new Node("String", "else", nullParent));
             } else if (type.equals("variable")) {
                 Variable variable = VariableUtil.RandomVariable();
-                VariableUtil.handleVarible(nullParent, variable, variablePool);
+                VariableUtil.handleVariable(nullParent, variable, variablePool);
             }else{
+                // Don't have special type. The request type may be a variable/ operator/ constant.
                 double probability = random.nextDouble();
                 if (probability < variableProbability) {
                     Variable variable = DictionariesUtil.findVariableByType(variablePool, type);

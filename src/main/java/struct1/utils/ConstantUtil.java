@@ -10,6 +10,12 @@ public class ConstantUtil {
 
     private static String elements = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ";
 
+
+    /**
+     * Random a constant (String) by type.
+     * @param type
+     * @return
+     */
     public static String randomConstantByType (String type) {
         String constant = null;
         if (type.equals("int")) {

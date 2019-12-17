@@ -14,6 +14,10 @@ public class RandomNameUtil {
 
     private static final int variableNameLength = 7;
 
+    /**
+     * Random a method name.
+     * @return
+     */
     public static String randomMethodName(){
         String methodName  = "";
         for (int i = 0; i < methodNameLength; i++) {
@@ -23,6 +27,11 @@ public class RandomNameUtil {
         methodName = methodName + "Method";
         return methodName;
     }
+
+    /**
+     * Random a variable name.
+     * @return
+     */
 
     public static String randomVariableName() {
         String variableName = "";
