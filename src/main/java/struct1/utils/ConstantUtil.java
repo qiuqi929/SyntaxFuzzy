@@ -8,8 +8,9 @@ public class ConstantUtil {
 
     private static Random random = Initialize.random;
 
-    private static String elements = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ";
+    private static String elements = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ!@#$%^&*(){}|:,./?<>";
 
+    private static final int elementsLength = 72;
 
     /**
      * Random a constant (String) by type.
@@ -34,6 +35,8 @@ public class ConstantUtil {
             constant = randomDouble();
         }else if (type.equals("boolean")) {
             constant = randomBoolean();
+        }else if (type.equals("String")) {
+            constant = randomString();
         }
         return constant;
     }
@@ -53,6 +56,16 @@ public class ConstantUtil {
         return Integer.toString(randomByte);
     }
 
+    private static final int  stringLength = 10;
+    private static String randomString() {
+        String str = "";
+        int length = random.nextInt(stringLength) + 1;
+        for (int i = 0; i < length; i++) {
+            int number = random.nextInt(elementsLength);
+            str += String.valueOf(elements.charAt(number));
+        }
+        return str;
+    }
 
     private static String randomChar() {
         double probability = random.nextDouble();
@@ -60,14 +73,22 @@ public class ConstantUtil {
             int randomChar = getRandomNumberInRange(Character.MIN_VALUE, Character.MAX_VALUE);
             return Integer.toString(randomChar);
         }else{
-            int number = random.nextInt(52);
+            int number = random.nextInt(elementsLength);
             char randomChar =  elements.charAt(number);
             return Character.toString(randomChar);
         }
     }
 
     private static int getRandomNumberInRange(int min, int max) {
-        return  random.nextInt((max - min) + 1) + min;
+        double probability = random.nextDouble();
+        if (probability < 0.5) {
+            // random positive number.
+            return random.nextInt(max); // 0 ~ max-1
+        }else{
+            // random negative number.
+            return random.nextInt(max) + min + 1; // min+1 ~ max + min
+        }
+//        return  random.nextInt((max - min) + 1) + min;
     }
 
     private static String randomLong() {

@@ -58,13 +58,16 @@ public class DictionariesUtil {
     }
 
     private static Variable randomVariable (List<Variable> variableList) {
+        if(variableList.size() == 0) {
+            return null;
+        }
         int randomInt = random.nextInt(variableList.size());
         return variableList.get(randomInt);
     }
 
 
 
-    private static OperatorPool operatorPool = Initialize.OperatorPool;
+    private static OperatorPool operatorPool = Initialize.operatorPool;
 
     /**
      * Random a operator by giving type.

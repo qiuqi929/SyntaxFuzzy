@@ -18,7 +18,7 @@ public class VariableUtil {
      * Random a variable. Only declare it!
      * @return
      */
-    public static Variable RandomVariable () {
+    public static Variable randomVariable() {
         // random a name and the type.
         String name = RandomNameUtil.randomVariableName();
         String type = RandomTypeUtil.randomVariableType();

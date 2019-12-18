@@ -14,7 +14,7 @@ import java.util.Random;
 
 public class OperatorUtil {
 
-    private static OperatorPool operatorPool = Initialize.OperatorPool;
+    private static OperatorPool operatorPool = Initialize.operatorPool;
 
     private static Random random = Initialize.random;
 
@@ -70,24 +70,33 @@ public class OperatorUtil {
             } else if (type.equals("else")) {
                 nullParent.addChild(new Node("String", "else", nullParent));
             } else if (type.equals("variable")) {
-                Variable variable = VariableUtil.RandomVariable();
+                Variable variable = VariableUtil.randomVariable();
                 VariableUtil.handleVariable(nullParent, variable, variablePool);
             }else{
                 // Don't have special type. The request type may be a variable/ operator/ constant.
                 double probability = random.nextDouble();
                 if (probability < variableProbability) {
+                    // Maybe there is no variable that conform to the type
                     Variable variable = DictionariesUtil.findVariableByType(variablePool, type);
-                    nullParent.addChild(new Node(variable, nullParent));
+                    if(variable == null){
+                        handleConstant(type, nullParent);
+                    }else{
+                        nullParent.addChild(new Node(variable, nullParent));
+                    }
                 } else if ( variableProbability <= probability && probability < variableProbability+operatorProbability){
                     Operator operatorByType = DictionariesUtil.findOperatorByType(type);
                     Node nullNode = new Node(nullParent);
                     handleOperator(nullNode, operatorByType, variablePool);
                 } else {
-                    String constant = ConstantUtil.randomConstantByType(type);
-                    nullParent.addChild(new Node(type, constant, nullParent));
+                    handleConstant(type, nullParent);
                 }
             }
         }
+    }
+
+    private static void handleConstant(String type, Node nullParent) {
+        String constant = ConstantUtil.randomConstantByType(type);
+        nullParent.addChild(new Node(type, constant, nullParent));
     }
 
 }

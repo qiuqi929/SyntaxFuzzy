@@ -1,7 +1,6 @@
 package utils;
 
 import initial.Initialize;
-import pool.Pool;
 import pool.TypePool;
 
 import java.util.Random;

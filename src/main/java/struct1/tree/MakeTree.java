@@ -18,7 +18,7 @@ public class MakeTree {
 
     private static Random random = Initialize.random;
 
-    private static OperatorPool operatorPool = Initialize.OperatorPool;
+    private static OperatorPool operatorPool = Initialize.operatorPool;
 
     private static final int parameterThresholdSize = 6;
 
@@ -52,7 +52,7 @@ public class MakeTree {
         // make Rule for this method
         Rule rule = new Rule();
         for (int i = 0; i < parameterThreshold; i++) {
-            Variable variable = VariableUtil.RandomVariable();
+            Variable variable = VariableUtil.randomVariable();
             rule.addElement(variable.getType());
             VariableUtil.handleVariable(parent, variable, variablePool);
         }
@@ -81,7 +81,7 @@ public class MakeTree {
         // Add these variable into variablePool.
         int variableThreshold = random.nextInt(variableThresholdSize);
         for (int i = 0; i < variableThreshold; i++) {
-            Variable variable = VariableUtil.RandomVariable();
+            Variable variable = VariableUtil.randomVariable();
             VariableUtil.handleVariable(nullParent, variable, variablePool);
         }
         // Random the operators. Package these operator into Node and connect to parent
