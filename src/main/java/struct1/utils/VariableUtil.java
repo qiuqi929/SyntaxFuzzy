@@ -1,10 +1,16 @@
 package utils;
 
+import initial.Initialize;
 import pool.VariablePool;
 import struct.Node;
+import struct.Operator;
 import struct.Variable;
 
+import java.util.Random;
+
 public class VariableUtil {
+
+    private static final Random random = Initialize.random;
 
     private static Variable makeVariable (String type, String name) {
         return new Variable(type, name);
@@ -33,16 +39,28 @@ public class VariableUtil {
      * @param variable
      * @param variablePool
      */
-    public static void handleVariable(Node parent, Variable variable, VariablePool variablePool) {
+    public static Node handleVariable(Node parent, Variable variable, VariablePool variablePool) {
         // package into Node and connect to parent.
-        parent.addChild(new Node(variable, parent));
+        Node newNode = new Node(variable, parent);
+        parent.addChild(newNode);
         // add variable into variablePool
         addVariableToPool(variablePool, variable);
+        return newNode;
     }
 
     /**
-     * TODO: When handle a variable: Maybe we can modify Node -> value be a constant or a operator string (probabilistic)
+     * When handle a variable: Maybe we can modify Node -> value be a constant or a operator string (probabilistic)
      * 1. Random a constant by type. Put it into node.value
      * 2. Random a operator by type. Handle it. And get the operator string!!!
      */
+    public static void assignVariable(Node variableNode) {
+        double probability = random.nextDouble();
+        if (probability < 1) {
+            String constant = ConstantUtil.randomConstantByType(variableNode.getVariable().getType());
+            variableNode.setValue(constant);
+        }else{
+            Operator operator = DictionariesUtil.findOperatorByType(variableNode.getVariable().getType());
+            // TODO: print the operator string -> A sub-tree of an operator.
+        }
+    }
 }

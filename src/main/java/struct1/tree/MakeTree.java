@@ -7,10 +7,7 @@ import struct.Node;
 import struct.Operator;
 import struct.Rule;
 import struct.Variable;
-import utils.OperatorUtil;
-import utils.RandomNameUtil;
-import utils.RandomTypeUtil;
-import utils.VariableUtil;
+import utils.*;
 
 import java.util.Random;
 
@@ -31,17 +28,20 @@ public class MakeTree {
         // Maintain a variablePool
         VariablePool variablePool = new VariablePool();
         // declare the method name/ return type / parameters (parameter is also usable variable)
-        declareMethod(headNode, variablePool);
+        Operator operator = declareMethod(headNode, variablePool);
         // create a nullNode used to connect block
         Node nullNode = new Node(headNode);
+        headNode.addChild(nullNode);
         // make the block
-        makeBlock(nullNode, variablePool);
+        makeBlock(headNode, variablePool);
 
-        // TODO: add a return variable.
+        getReturnValue(operator.getReturnType(), headNode);
+
+        operatorPool.addElement(operator);
         return headNode;
     }
 
-    public static void declareMethod (Node parent, VariablePool variablePool) {
+    public static Operator declareMethod (Node parent, VariablePool variablePool) {
         // Random the Method Name and return Type. Package it into ONE Node.
         String methodName = RandomNameUtil.randomMethodName();
         String returnType = RandomTypeUtil.randomReturnType();
@@ -59,7 +59,7 @@ public class MakeTree {
         // package the method as an operator
         Operator operator = new Operator(returnType, rule, methodName);
         // add it to the operatorPool
-        operatorPool.addElement(operator);
+        return operator;
     }
 
     /**
@@ -72,6 +72,7 @@ public class MakeTree {
      * @param upVariablePool
      */
     public static void makeBlock (Node nullParent, VariablePool upVariablePool) {
+        System.out.printf("----------------- begin to makeBlock %d ----------- \n", OperatorUtil.nestedLayer);
         // copy the variable list to a new variablePool
         VariablePool variablePool = new VariablePool(upVariablePool.getPoolList());
         // handle a block operator
@@ -82,14 +83,27 @@ public class MakeTree {
         int variableThreshold = random.nextInt(variableThresholdSize);
         for (int i = 0; i < variableThreshold; i++) {
             Variable variable = VariableUtil.randomVariable();
-            VariableUtil.handleVariable(nullParent, variable, variablePool);
+            System.out.printf("variable %d: [type: %s ; name: %s]\n", i, variable.getType(), variable.getName());
+            Node variableNode = VariableUtil.handleVariable(nullParent, variable, variablePool);
+            VariableUtil.assignVariable(variableNode);
         }
         // Random the operators. Package these operator into Node and connect to parent
         int operatorThreshold = random.nextInt(operatorThresholdSize);
         for (int i = 0; i < operatorThreshold; i++) {
             Operator operator = OperatorUtil.randomOperator();
+            System.out.printf("operator %d: [format: %s]\n", i, operator.getFormat());
             Node nullNode = new Node(nullParent);
+            nullParent.addChild(nullNode);
             OperatorUtil.handleOperator(nullNode, operator, variablePool);
         }
+    }
+
+    /**
+     * Last child node for headNode
+     * @param returnType
+     * @param parent
+     */
+    private static void getReturnValue(String returnType, Node parent) {
+        parent.addChild(new Node(returnType, ConstantUtil.randomConstantByType(returnType), parent));
     }
 }

@@ -51,7 +51,12 @@ public class OperatorUtil {
      * @param operator
      * @param variablePool
      */
+
+    public static int nestedLayer = 1;
     public static void handleOperator(Node nullParent, Operator operator, VariablePool variablePool) {
+        if(nestedLayer > 4){
+            return;
+        }
         // add operator as a child
         nullParent.addChild(new Node(operator, nullParent));
         // get operator constraint parameters' type (typelist)
@@ -63,7 +68,9 @@ public class OperatorUtil {
             String type = typelist.get(i);
             // special handling: the special type (example: while(Rule: boolean block), if(boolean block else block))
             if (type.equals("block")){
+                nestedLayer ++;
                 Node nullNode = new Node(nullParent);
+                nullParent.addChild(nullNode);
                 MakeTree.makeBlock(nullNode, variablePool);
             } else if (type.equals("while")) {
                 nullParent.addChild(new Node("String", "while", nullParent));
@@ -71,7 +78,8 @@ public class OperatorUtil {
                 nullParent.addChild(new Node("String", "else", nullParent));
             } else if (type.equals("variable")) {
                 Variable variable = VariableUtil.randomVariable();
-                VariableUtil.handleVariable(nullParent, variable, variablePool);
+                Node variableNode = VariableUtil.handleVariable(nullParent, variable, variablePool);
+                VariableUtil.assignVariable(variableNode);
             }else{
                 // Don't have special type. The request type may be a variable/ operator/ constant.
                 double probability = random.nextDouble();
@@ -86,6 +94,7 @@ public class OperatorUtil {
                 } else if ( variableProbability <= probability && probability < variableProbability+operatorProbability){
                     Operator operatorByType = DictionariesUtil.findOperatorByType(type);
                     Node nullNode = new Node(nullParent);
+                    nullParent.addChild(nullNode);
                     handleOperator(nullNode, operatorByType, variablePool);
                 } else {
                     handleConstant(type, nullParent);
