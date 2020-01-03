@@ -31,7 +31,14 @@ public class Initialize {
     }
 
     public static void initialOperatorPool() throws IOException {
-        BufferedReader br = new BufferedReader(new InputStreamReader(Objects.requireNonNull(Initialize.class.getClassLoader().getResourceAsStream("operatorInit.txt"))));
+        initialOperatorPool("java");
+    }
+
+    public static void initialOperatorPool(String language) throws IOException {
+        String initFile = "";
+        if ("java".equals(language)) initFile = "javaOperatorInit.txt";
+        else initFile = "pythonOperatorInit.txt";
+        BufferedReader br = new BufferedReader(new InputStreamReader(Objects.requireNonNull(Initialize.class.getClassLoader().getResourceAsStream(initFile))));
         String[] line = new String[4];
         int readLineNum = 0;
 

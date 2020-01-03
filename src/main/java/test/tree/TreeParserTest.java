@@ -23,23 +23,23 @@ public class TreeParserTest {
 
     @Test
     public void testGenerateMethod() {
-        System.out.println(TreeParser.generateMethod());
+        System.out.println(JavaTreeParser.generateMethod());
     }
 
     @Test
     public void testAddNewMethod() {
         List<Operator> operatorList = Initialize.operatorPool.getPoolList();
         System.out.println(operatorList);
-        TreeParser.generateMethod();
+        JavaTreeParser.generateMethod();
         System.out.println(operatorList);
-        TreeParser.generateMethod();
+        JavaTreeParser.generateMethod();
         System.out.println(operatorList);
     }
 
     @Test
     public void testUseMethod() {
-        for (int i = 0; i < 100; i++) TreeParser.generateMethod();
-        System.out.println(TreeParser.generateMethod() );
+        for (int i = 0; i < 100; i++) JavaTreeParser.generateMethod();
+        System.out.println(JavaTreeParser.generateMethod() );
     }
 
 }

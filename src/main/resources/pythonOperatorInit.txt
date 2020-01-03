@@ -1,0 +1,107 @@
+void
+
+block
+
+void
+boolean block
+while
+
+void
+block while boolean
+do
+
+void
+boolean block else block
+if
+
+int
+int int
+%s + %s
+
+short
+short short
+%s + %s
+
+long
+long long
+%s + %s
+
+byte
+byte byte
+%s + %s
+
+float
+float float
+%s + %s
+
+double
+double double
+%s + %s
+
+int
+int int
+%s * %s
+
+short
+short short
+%s * %s
+
+long
+long long
+%s * %s
+
+byte
+byte byte
+%s * %s
+
+float
+float float
+%s * %s
+
+double
+double double
+%s * %s
+
+String
+String String
+%s + %s
+
+int
+int int
+%s - %s
+
+short
+short short
+%s - %s
+
+long
+long long
+%s - %s
+
+byte
+byte byte
+%s - %s
+
+float
+float float
+%s - %s
+
+double
+double double
+%s - %s
+
+boolean
+boolean boolean
+%s & %s
+
+boolean
+boolean boolean
+%s and %s
+
+boolean
+boolean boolean
+%s | %s
+
+boolean
+boolean boolean
+%s ^ %s
