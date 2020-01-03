@@ -85,7 +85,6 @@ public class MakeTree {
         int operatorThreshold = random.nextInt(operatorThresholdSize);
         for (int i = 0; i < operatorThreshold; i++) {
             Operator operator = OperatorUtil.randomOperator();
-            System.out.printf("operator %d: [format: %s]\n", i, operator.getFormat());
             Node nullNode = new Node(nullParent);
             nullParent.addChild(nullNode);
             OperatorUtil.handleOperator(nullNode, operator, variablePool);

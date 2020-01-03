@@ -61,13 +61,13 @@ public class OperatorUtil {
         }
         // add operator as a child
         nullParent.addChild(new Node(operator, nullParent));
-        // get operator constraint parameters' type (typelist)
+        // get operator constraint parameters' type (typeList)
         Rule rule = DictionariesUtil.getRuleByOperator(operator);
-        List<String> typelist = DictionariesUtil.getTypesByRule(rule);
+        List<String> typeList = DictionariesUtil.getTypesByRule(rule);
 
-        for (int i = 0; i < typelist.size(); i++) {
+        for (int i = 0; i < typeList.size(); i++) {
             // handle each type in the rule.
-            String type = typelist.get(i);
+            String type = typeList.get(i);
             // special handling: the special type (example: while(Rule: boolean block), if(boolean block else block))
             if (type.equals("block")) {
                 nestedLayer++;

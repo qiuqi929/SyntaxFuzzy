@@ -70,12 +70,14 @@ public class TreeParser {
         StringBuilder res = new StringBuilder(" {\n");
         List<Node> children = root.getChildNode();
         for (int i = 1, size = children.size(); i < size; i++) {
-            for (int j = 0; j < indent; j++) res.append('\t');
             Node tmpNode = children.get(i);
+            if (tmpNode.getValue() == null && (tmpNode.getChildNode() == null || tmpNode.getChildNode().size() == 0) && tmpNode.getVariable() == null && tmpNode.getOperator() == null)
+                continue;
+            for (int j = 0; j < indent; j++) res.append('\t');
             if (tmpNode.getVariable() != null) {
                 Variable v = tmpNode.getVariable();
                 res.append(v.getType()).append(' ').append(v.getName()).append(" = ").append(tmpNode.getValue()).append(";");
-            } else {
+            } else if (tmpNode.getChildNode().size() != 0) {
                 List<Node> twoSubNode = tmpNode.getChildNode();
                 Operator operator = twoSubNode.get(0).getOperator();
                 String returnType = operator.getReturnType();
@@ -84,6 +86,12 @@ public class TreeParser {
                 } else {
                     res.append(generateSingleStatement(tmpNode, pool, returnType));
                 }
+            } else if (tmpNode.getValue() != null) {
+                res.append("value not null");
+            } else if (tmpNode.getOperator() != null) {
+                res.append("operator not null");
+            } else {
+                res.append("something strange here");
             }
             res.append('\n');
         }
@@ -93,18 +101,16 @@ public class TreeParser {
         }
         if (type != null && !type.equals("void")) {
             for (int i = 0; i < indent; i++) res.append('\t');
-            switch (RandomNameUtil.nextInt(2)) {
-                case 0:
-                    res.append("return ").append(ConstantUtil.randomConstantByType(type)).append(";");
-                    break;
-                case 1:
-                    res.append("return ").append(DictionariesUtil.findVariableByType(pool, type)).append(";");
-                    break;
+            Variable v = DictionariesUtil.findVariableByType(pool, type);
+            if (v != null && RandomNameUtil.nextInt(2) == 1) {
+                res.append("return ").append(DictionariesUtil.findVariableByType(pool, type).getName()).append(";");
+            } else {
+                res.append("return ").append(ConstantUtil.randomConstantByType(type)).append(";");
             }
             res.append('\n');
         }
         for (int i = 0; i < indent - 1; i++) res.append('\t');
-        res.append("}\n");
+        res.append("}");
         return res.toString();
     }
 
@@ -125,8 +131,9 @@ public class TreeParser {
                 res.append(generateBlock(children.get(i + 1), newPool, indent + 1, addBreak, null));
                 addBreak = false;
             } else if (ConstantUtil.inKeywords(type)) {
-                for (int j = 0; j < indent; j++) res.append('\t');
-                res.append(type);
+                if (i == 0)
+                    for (int j = 0; j < indent; j++) res.append('\t');
+                res.append(" ").append(type);
                 if (type.equals("while")) addBreak = true;
             } else {
                 res.append('(').append(generateStatement(children.get(i + 1))).append(')');
