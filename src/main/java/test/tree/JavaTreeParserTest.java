@@ -9,13 +9,13 @@ import struct.Operator;
 import java.io.IOException;
 import java.util.List;
 
-public class TreeParserTest {
+public class JavaTreeParserTest {
 
     @Before
     public void before() {
         Initialize.initialTypePool();
         try {
-            Initialize.initialOperatorPool();
+            Initialize.initialOperatorPool("java");
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -39,7 +39,7 @@ public class TreeParserTest {
     @Test
     public void testUseMethod() {
         for (int i = 0; i < 100; i++) JavaTreeParser.generateMethod();
-        System.out.println(JavaTreeParser.generateMethod() );
+        System.out.println(JavaTreeParser.generateMethod());
     }
 
 }

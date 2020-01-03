@@ -78,6 +78,14 @@ int
 int int
 %s - %s
 
+void
+String
+System.out.println(%s)
+
+boolean
+String String
+%s.equals(%s)
+
 short
 short short
 %s - %s

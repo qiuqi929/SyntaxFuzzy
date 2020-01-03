@@ -1,32 +1,16 @@
 package tree;
 
-import initial.Initialize;
 import pool.VariablePool;
 import struct.Node;
 import struct.Operator;
 import struct.Rule;
 import struct.Variable;
-import utils.ConstantUtil;
 import utils.DictionariesUtil;
 import utils.RandomNameUtil;
 
-import java.io.IOException;
 import java.util.List;
 
 public class PythonTreeParser {
-
-    static {
-        Initialize.initialTypePool();
-        try {
-            Initialize.initialOperatorPool("python");
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
-
-    public static void main(String[] args) {
-        System.out.println(generateMethod());
-    }
 
     public static String generateMethod() {
         Node root = new Node(null);
@@ -83,8 +67,8 @@ public class PythonTreeParser {
                 Operator operator = twoSubNode.get(0).getOperator();
                 String format = operator.getFormat();
                 String returnType = operator.getReturnType();
-                if (returnType.equals("void") && (format.equals("if") || format.equals("while") || format.equals("do"))) {
-//                    res.append(generateFlowControl(tmpNode, pool, indent));
+                if (returnType.equals("void") && (format.equals("if") || format.equals("while"))) {
+                    res.append(generateFlowControl(tmpNode, pool, indent));
                 } else {
                     res.append(generateSingleStatement(tmpNode, pool, returnType));
                 }
@@ -104,32 +88,25 @@ public class PythonTreeParser {
         Rule rule = operator.getRule();
         List<String> typeList = rule.getTypelist();
 
-        res.append(format);
-        boolean addBreak = format.equals("while") || format.equals("do") || format.equals("for");
+        res.append(format).append(" ");
+        boolean addBreak = format.equals("while");
         if (addBreak && children.get(1) != null && children.get(1).getValue() != null) {
-            children.get(1).setValue("true");
+            children.get(1).setValue("True");
         }
         for (int i = 0, size = typeList.size(); i < size; i++) {
             String type = typeList.get(i);
-            if (type.equals("block")) {
-                VariablePool newPool = new VariablePool(pool);
-                res.append(generateBlock(children.get(i + 1), newPool, indent + 1, addBreak, null));
-                addBreak = false;
-            } else if (ConstantUtil.inKeywords(type)) {
-                if (i == 0)
-                    for (int j = 0; j < indent; j++) res.append('\t');
-                res.append(" ").append(type);
-                if (type.equals("while")) {
-                    addBreak = true;
-                    if (children.get(i + 2) != null && children.get(i + 2).getValue() != null) {
-                        children.get(i + 2).setValue("true");
-                    }
-                }
+            if ("block".equals(type)) {
+                VariablePool p = new VariablePool(pool);
+                res.append(generateBlock(children.get(i + 1), p, indent + 1, addBreak, null));
+                for (int j = 0; j < indent + 1; j++) res.append('\t');
+                res.append("pass\n");
+            } else if ("else".equals(type)) {
+                for (int j = 0; j < indent; j++) res.append('\t');
+                res.append("else: \n");
             } else {
-                res.append('(').append(generateStatement(children.get(i + 1))).append(')');
+                res.append(generateStatement(children.get(i + 1))).append(": \n");
             }
         }
-        if (format.equals("do")) res.append(';');
         return res.toString();
     }
 

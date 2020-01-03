@@ -143,7 +143,11 @@ public class JavaTreeParser {
             pool.addElement(v);
             res.append(returnType).append(' ');
         }
-        res.append(v.getName()).append(" = ").append("(").append(v.getType()).append(")(").append(generateStatement(root)).append(");");
+        if ("void".equals(v.getType())) {
+            res.append(v.getName()).append(" = ").append(generateStatement(root)).append(";");
+        } else {
+            res.append(v.getName()).append(" = ").append("(").append(v.getType()).append(")(").append(generateStatement(root)).append(");");
+        }
         return res.toString();
     }
 

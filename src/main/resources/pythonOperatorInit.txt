@@ -7,31 +7,11 @@ boolean block
 while
 
 void
-block while boolean
-do
-
-void
 boolean block else block
 if
 
 int
 int int
-%s + %s
-
-short
-short short
-%s + %s
-
-long
-long long
-%s + %s
-
-byte
-byte byte
-%s + %s
-
-float
-float float
 %s + %s
 
 double
@@ -40,22 +20,6 @@ double double
 
 int
 int int
-%s * %s
-
-short
-short short
-%s * %s
-
-long
-long long
-%s * %s
-
-byte
-byte byte
-%s * %s
-
-float
-float float
 %s * %s
 
 double
@@ -70,22 +34,6 @@ int
 int int
 %s - %s
 
-short
-short short
-%s - %s
-
-long
-long long
-%s - %s
-
-byte
-byte byte
-%s - %s
-
-float
-float float
-%s - %s
-
 double
 double double
 %s - %s
@@ -97,6 +45,10 @@ boolean boolean
 boolean
 boolean boolean
 %s and %s
+
+boolean
+boolean boolean
+%s or %s
 
 boolean
 boolean boolean
