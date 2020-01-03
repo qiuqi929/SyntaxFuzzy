@@ -32,10 +32,6 @@ public class DictionariesUtil {
     /**
      * Random a variable by giving type.
      * (The type of variable is giving type)
-     *
-     * @param variablePool
-     * @param type
-     * @return
      */
     public static Variable findVariableByType(VariablePool variablePool, String type) {
         List<Variable> variableList = findVariablesByType(variablePool, type);

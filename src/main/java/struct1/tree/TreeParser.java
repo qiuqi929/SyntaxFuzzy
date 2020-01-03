@@ -124,6 +124,9 @@ public class TreeParser {
 
         res.append(format);
         boolean addBreak = format.equals("while") || format.equals("do") || format.equals("for");
+        if (addBreak && children.get(1) != null && children.get(1).getValue() != null) {
+            children.get(1).setValue("true");
+        }
         for (int i = 0, size = typeList.size(); i < size; i++) {
             String type = typeList.get(i);
             if (type.equals("block")) {
@@ -134,7 +137,12 @@ public class TreeParser {
                 if (i == 0)
                     for (int j = 0; j < indent; j++) res.append('\t');
                 res.append(" ").append(type);
-                if (type.equals("while")) addBreak = true;
+                if (type.equals("while")) {
+                    addBreak = true;
+                    if (children.get(i + 2) != null && children.get(i + 2).getValue() != null) {
+                        children.get(i + 2).setValue("true");
+                    }
+                }
             } else {
                 res.append('(').append(generateStatement(children.get(i + 1))).append(')');
             }

@@ -56,7 +56,7 @@ public class OperatorUtil {
     public static int nestedLayer = 1;
 
     public static void handleOperator(Node nullParent, Operator operator, VariablePool variablePool) {
-        if (nestedLayer > 4) {
+        if (nestedLayer > 9) {
             return;
         }
         // add operator as a child
