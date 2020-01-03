@@ -20,24 +20,34 @@ public class ConstantUtil {
      */
     public static String randomConstantByType(String type) {
         String constant = null;
-        if (type.equals("int")) {
-            constant = randomInt();
-        } else if (type.equals("short")) {
-            constant = randomShort();
-        } else if (type.equals("byte")) {
-            constant = randomByte();
-        } else if (type.equals("char")) {
-            constant = randomChar();
-        } else if (type.equals("long")) {
-            constant = randomLong();
-        } else if (type.equals("float")) {
-            constant = randomFloat();
-        } else if (type.equals("double")) {
-            constant = randomDouble();
-        } else if (type.equals("boolean")) {
-            constant = randomBoolean();
-        } else if (type.equals("String")) {
-            constant = "\"" + randomString() + "\"";
+        switch (type) {
+            case "int":
+                constant = randomInt();
+                break;
+            case "short":
+                constant = randomShort();
+                break;
+            case "byte":
+                constant = randomByte();
+                break;
+            case "char":
+                constant = randomChar();
+                break;
+            case "long":
+                constant = randomLong();
+                break;
+            case "float":
+                constant = randomFloat();
+                break;
+            case "double":
+                constant = randomDouble();
+                break;
+            case "boolean":
+                constant = randomBoolean();
+                break;
+            case "String":
+                constant = "\"" + randomString() + "\"";
+                break;
         }
         return constant;
     }
@@ -60,25 +70,33 @@ public class ConstantUtil {
     private static final int stringLength = 10;
 
     private static String randomString() {
-        String str = "";
+        StringBuilder str = new StringBuilder();
         int length = random.nextInt(stringLength) + 1;
         for (int i = 0; i < length; i++) {
             int number = random.nextInt(elementsLength);
-            str += String.valueOf(elements.charAt(number));
+            str.append(String.valueOf(elements.charAt(number)));
         }
-        return str;
+        return str.toString();
     }
 
     private static String randomChar() {
         double probability = random.nextDouble();
         if (probability < 0.5) {
             int randomChar = getRandomNumberInRange(Character.MIN_VALUE, Character.MAX_VALUE);
-            return Integer.toString(randomChar);
+            return "" + randomChar;
         } else {
             int number = random.nextInt(elementsLength);
             char randomChar = elements.charAt(number);
-            return Character.toString(randomChar);
+            return "'" + randomChar + "'";
         }
+    }
+
+    public static boolean inKeywords(String word) {
+        String[] keywords = new String[]{"if", "else", "while", "try", "catch"};
+        for (String keyword : keywords) {
+            if (keyword.equals(word)) return true;
+        }
+        return false;
     }
 
     private static int getRandomNumberInRange(int min, int max) {

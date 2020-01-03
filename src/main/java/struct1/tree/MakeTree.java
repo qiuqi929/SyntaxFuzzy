@@ -67,8 +67,7 @@ public class MakeTree {
      * Maybe we can put it in the Node -> value.
      * The constant has type & value. But variable only has value.
      */
-    public static void makeBlock(Node nullParent, VariablePool upVariablePool) {
-        System.out.printf("----------------- begin to makeBlock %d ----------- \n", OperatorUtil.nestedLayer);
+    public static VariablePool makeBlock(Node nullParent, VariablePool upVariablePool) {
         // copy the variable list to a new variablePool
         VariablePool variablePool = new VariablePool(upVariablePool.getPoolList());
         // handle a block operator
@@ -79,7 +78,6 @@ public class MakeTree {
         int variableThreshold = random.nextInt(variableThresholdSize);
         for (int i = 0; i < variableThreshold; i++) {
             Variable variable = VariableUtil.randomVariable();
-            System.out.printf("variable %d: [type: %s ; name: %s]\n", i, variable.getType(), variable.getName());
             Node variableNode = VariableUtil.handleVariable(nullParent, variable, variablePool);
             VariableUtil.assignVariable(variableNode);
         }
@@ -92,6 +90,7 @@ public class MakeTree {
             nullParent.addChild(nullNode);
             OperatorUtil.handleOperator(nullNode, operator, variablePool);
         }
+        return variablePool;
     }
 
     /**

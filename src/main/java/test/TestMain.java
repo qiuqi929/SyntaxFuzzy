@@ -193,11 +193,12 @@ public class TestMain {
             System.out.println("name: " + variable.getName());
             System.out.println("type: " + variable.getType());
         }
+    }
 
-        System.out.println("--------------- test make block and handleOperator -----------------");
-        Node nullNode = new Node(headNode);
-        headNode.addChild(nullNode);
-        MakeTree.makeBlock(nullNode, variablePool);
+    @Test
+    public void testMakeBlock() {
+        Node nullNode = new Node(null);
+        MakeTree.makeBlock(nullNode, new VariablePool());
     }
 
     @Test

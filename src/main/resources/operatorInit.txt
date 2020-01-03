@@ -58,7 +58,7 @@ byte
 byte byte
 %s * %s
 
-char
+int
 char char
 %s * %s
 
