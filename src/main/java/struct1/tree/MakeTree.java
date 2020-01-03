@@ -9,6 +9,7 @@ import struct.Rule;
 import struct.Variable;
 import utils.*;
 
+import java.util.List;
 import java.util.Random;
 
 public class MakeTree {
@@ -17,11 +18,11 @@ public class MakeTree {
 
     private static OperatorPool operatorPool = Initialize.operatorPool;
 
-    private static final int parameterThresholdSize = 6;
+    private static final int parameterThresholdSize = 5;
 
-    private static final int variableThresholdSize = 11;
+    private static final int variableThresholdSize = 3;
 
-    private static final int operatorThresholdSize = 8;
+    private static final int operatorThresholdSize = 6;
 
     public static Node generateMethod() {
         Node headNode = new Node(null);
@@ -57,7 +58,24 @@ public class MakeTree {
             VariableUtil.handleVariable(parent, variable, variablePool);
         }
         // package the method as an operator
-        return new Operator(returnType, rule, methodName);
+
+        Operator operator = new Operator(returnType, rule, buildMethodFormat(rule, methodName));
+        operatorPool.addElement(operator);
+        return operator;
+    }
+
+    private static String buildMethodFormat(Rule rule, String methodName) {
+        StringBuilder res = new StringBuilder();
+        res.append(methodName).append("(");
+        List<String> typeList = rule.getTypelist();
+        for (int i = 0, size = typeList.size(); i < size; i++) {
+            if (i != size - 1) {
+                res.append("%s, ");
+            } else {
+                res.append("%s)");
+            }
+        }
+        return res.toString();
     }
 
     /**

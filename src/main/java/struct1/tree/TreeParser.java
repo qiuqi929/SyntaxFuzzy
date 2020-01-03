@@ -1,6 +1,5 @@
 package tree;
 
-import initial.Initialize;
 import pool.VariablePool;
 import struct.Node;
 import struct.Operator;
@@ -10,21 +9,9 @@ import utils.ConstantUtil;
 import utils.DictionariesUtil;
 import utils.RandomNameUtil;
 
-import java.io.IOException;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Random;
 
 public class TreeParser {
-
-    static {
-        Initialize.initialTypePool();
-        try {
-            Initialize.initialOperatorPool();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
 
     private static final String[] modifiers = new String[]{"public", "static"};
 
@@ -76,18 +63,19 @@ public class TreeParser {
             } else if (tmpNode.getChildNode().size() != 0) {
                 List<Node> twoSubNode = tmpNode.getChildNode();
                 Operator operator = twoSubNode.get(0).getOperator();
+                String format = operator.getFormat();
                 String returnType = operator.getReturnType();
-                if (returnType.equals("void")) {
+                if (returnType.equals("void") && (format.equals("if") || format.equals("while") || format.equals("do"))) {
                     res.append(generateFlowControl(tmpNode, pool, indent));
                 } else {
                     res.append(generateSingleStatement(tmpNode, pool, returnType));
                 }
             } else if (tmpNode.getValue() != null) {
-                res.append("value not null");
+                res.append("//value not null");
             } else if (tmpNode.getOperator() != null) {
-                res.append("operator not null");
+                res.append("//operator not null");
             } else {
-                res.append("something strange here");
+                res.append("//something strange here, it should never be reached");
             }
             res.append('\n');
         }
@@ -155,7 +143,7 @@ public class TreeParser {
             pool.addElement(v);
             res.append(returnType).append(' ');
         }
-        res.append(v.getName()).append(" = ").append(generateStatement(root)).append(';');
+        res.append(v.getName()).append(" = ").append("(").append(v.getType()).append(")(").append(generateStatement(root)).append(");");
         return res.toString();
     }
 

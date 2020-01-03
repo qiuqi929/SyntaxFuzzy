@@ -38,7 +38,7 @@ public class OperatorUtil {
 
     private static final double variableProbability = 0.3;
 
-    private static final double operatorProbability = 0.2;
+    private static final double operatorProbability = 0.4;
 
     /**
      * Handle the operator which may call in the block or call in the function parameter.
@@ -47,10 +47,6 @@ public class OperatorUtil {
      * If the operator call in the block. Only CALL in the BLOCK, it may call operator while/for/if/etc
      * Those operators(while/for/if..) have special types(block/(do)while/else..) in the rule typelist -> Special handling
      * If there is a block. Call makeBlock method! Then operator while/for/if/etc will only call in the block.
-     *
-     * @param nullParent
-     * @param operator
-     * @param variablePool
      */
 
     public static int nestedLayer = 1;
@@ -65,9 +61,8 @@ public class OperatorUtil {
         Rule rule = DictionariesUtil.getRuleByOperator(operator);
         List<String> typeList = DictionariesUtil.getTypesByRule(rule);
 
-        for (int i = 0; i < typeList.size(); i++) {
+        for (String type : typeList) {
             // handle each type in the rule.
-            String type = typeList.get(i);
             // special handling: the special type (example: while(Rule: boolean block), if(boolean block else block))
             if (type.equals("block")) {
                 nestedLayer++;
