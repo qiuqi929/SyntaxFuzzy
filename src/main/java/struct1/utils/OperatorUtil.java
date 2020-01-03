@@ -21,18 +21,18 @@ public class OperatorUtil {
     /**
      * Random an operator except special operator (block)
      * It may while/ for/ if ...
+     *
      * @return
      */
     // random operator except block
-    public static Operator randomOperator () {
+    public static Operator randomOperator() {
         return operatorPool.randomElement();
     }
 
     /**
      * Get special operator -> block operator
-     * @return
      */
-    public static Operator getBlockOperator () {
+    public static Operator getBlockOperator() {
         return operatorPool.getSpecialBlock();
     }
 
@@ -43,18 +43,20 @@ public class OperatorUtil {
     /**
      * Handle the operator which may call in the block or call in the function parameter.
      * Consider: If the operator call in the function parameter. It must have return type!
-     *                    And the operator is a simple function instead of while/for/if/etc
-     *           If the operator call in the block. Only CALL in the BLOCK, it may call operator while/for/if/etc
-     *                    Those operators(while/for/if..) have special types(block/(do)while/else..) in the rule typelist -> Special handling
-     *                    If there is a block. Call makeBlock method! Then operator while/for/if/etc will only call in the block.
+     * And the operator is a simple function instead of while/for/if/etc
+     * If the operator call in the block. Only CALL in the BLOCK, it may call operator while/for/if/etc
+     * Those operators(while/for/if..) have special types(block/(do)while/else..) in the rule typelist -> Special handling
+     * If there is a block. Call makeBlock method! Then operator while/for/if/etc will only call in the block.
+     *
      * @param nullParent
      * @param operator
      * @param variablePool
      */
 
     public static int nestedLayer = 1;
+
     public static void handleOperator(Node nullParent, Operator operator, VariablePool variablePool) {
-        if(nestedLayer > 4){
+        if (nestedLayer > 4) {
             return;
         }
         // add operator as a child
@@ -67,8 +69,8 @@ public class OperatorUtil {
             // handle each type in the rule.
             String type = typelist.get(i);
             // special handling: the special type (example: while(Rule: boolean block), if(boolean block else block))
-            if (type.equals("block")){
-                nestedLayer ++;
+            if (type.equals("block")) {
+                nestedLayer++;
                 Node nullNode = new Node(nullParent);
                 nullParent.addChild(nullNode);
                 MakeTree.makeBlock(nullNode, variablePool);
@@ -80,18 +82,18 @@ public class OperatorUtil {
                 Variable variable = VariableUtil.randomVariable();
                 Node variableNode = VariableUtil.handleVariable(nullParent, variable, variablePool);
                 VariableUtil.assignVariable(variableNode);
-            }else{
+            } else {
                 // Don't have special type. The request type may be a variable/ operator/ constant.
                 double probability = random.nextDouble();
                 if (probability < variableProbability) {
                     // Maybe there is no variable that conform to the type
                     Variable variable = DictionariesUtil.findVariableByType(variablePool, type);
-                    if(variable == null){
+                    if (variable == null) {
                         handleConstant(type, nullParent);
-                    }else{
+                    } else {
                         nullParent.addChild(new Node(variable, nullParent));
                     }
-                } else if ( variableProbability <= probability && probability < variableProbability+operatorProbability){
+                } else if (variableProbability <= probability && probability < variableProbability + operatorProbability) {
                     Operator operatorByType = DictionariesUtil.findOperatorByType(type);
                     Node nullNode = new Node(nullParent);
                     nullParent.addChild(nullNode);

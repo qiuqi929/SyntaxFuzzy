@@ -13,6 +13,7 @@ import utils.RandomNameUtil;
 import java.io.IOException;
 import java.util.HashSet;
 import java.util.List;
+import java.util.Random;
 
 public class TreeParser {
 
@@ -62,10 +63,10 @@ public class TreeParser {
     private static String generateMethodBody(Node root, VariablePool pool) {
         List<Node> children = root.getChildNode();
         Node blockNode = children.get(children.size() - 1);
-        return generateBlock(blockNode, pool, 1, false);
+        return generateBlock(blockNode, pool, 1, false, root.getChildNode().get(0).getType());
     }
 
-    public static String generateBlock(Node root, VariablePool pool, int indent, boolean addBreak) {
+    public static String generateBlock(Node root, VariablePool pool, int indent, boolean addBreak, String type) {
         StringBuilder res = new StringBuilder(" {\n");
         List<Node> children = root.getChildNode();
         for (int i = 1, size = children.size(); i < size; i++) {
@@ -88,7 +89,19 @@ public class TreeParser {
         }
         if (addBreak) {
             for (int i = 0; i < indent; i++) res.append('\t');
-            res.append("break").append('\n');
+            res.append("break;").append('\n');
+        }
+        if (type != null && !type.equals("void")) {
+            for (int i = 0; i < indent; i++) res.append('\t');
+            switch (RandomNameUtil.nextInt(2)) {
+                case 0:
+                    res.append("return ").append(ConstantUtil.randomConstantByType(type)).append(";");
+                    break;
+                case 1:
+                    res.append("return ").append(DictionariesUtil.findVariableByType(pool, type)).append(";");
+                    break;
+            }
+            res.append('\n');
         }
         for (int i = 0; i < indent - 1; i++) res.append('\t');
         res.append("}\n");
@@ -104,12 +117,12 @@ public class TreeParser {
         List<String> typeList = rule.getTypelist();
 
         res.append(format);
-        boolean addBreak = false;
+        boolean addBreak = format.equals("while") || format.equals("do") || format.equals("for");
         for (int i = 0, size = typeList.size(); i < size; i++) {
             String type = typeList.get(i);
             if (type.equals("block")) {
                 VariablePool newPool = new VariablePool(pool);
-                res.append(generateBlock(children.get(i + 1), newPool, indent + 1, addBreak));
+                res.append(generateBlock(children.get(i + 1), newPool, indent + 1, addBreak, null));
                 addBreak = false;
             } else if (ConstantUtil.inKeywords(type)) {
                 for (int j = 0; j < indent; j++) res.append('\t');

@@ -40,4 +40,8 @@ public class RandomNameUtil {
         return variableName.toString();
     }
 
+    public static int nextInt(int bound) {
+        return random.nextInt(bound);
+    }
+
 }
