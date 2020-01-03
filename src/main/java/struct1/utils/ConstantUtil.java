@@ -14,29 +14,30 @@ public class ConstantUtil {
 
     /**
      * Random a constant (String) by type.
+     *
      * @param type
      * @return
      */
-    public static String randomConstantByType (String type) {
+    public static String randomConstantByType(String type) {
         String constant = null;
         if (type.equals("int")) {
             constant = randomInt();
-        }else if (type.equals("short")) {
+        } else if (type.equals("short")) {
             constant = randomShort();
-        }else if (type.equals("byte")) {
+        } else if (type.equals("byte")) {
             constant = randomByte();
-        }else if (type.equals("char")) {
+        } else if (type.equals("char")) {
             constant = randomChar();
-        }else if (type.equals("long")) {
+        } else if (type.equals("long")) {
             constant = randomLong();
-        }else if (type.equals("float")) {
+        } else if (type.equals("float")) {
             constant = randomFloat();
-        }else if (type.equals("double")) {
+        } else if (type.equals("double")) {
             constant = randomDouble();
-        }else if (type.equals("boolean")) {
+        } else if (type.equals("boolean")) {
             constant = randomBoolean();
-        }else if (type.equals("String")) {
-            constant = randomString();
+        } else if (type.equals("String")) {
+            constant = "\"" + randomString() + "\"";
         }
         return constant;
     }
@@ -51,12 +52,13 @@ public class ConstantUtil {
         return Integer.toString(randomShort);
     }
 
-    private static String randomByte () {
+    private static String randomByte() {
         int randomByte = getRandomNumberInRange(Byte.MIN_VALUE, Byte.MAX_VALUE);
         return Integer.toString(randomByte);
     }
 
-    private static final int  stringLength = 10;
+    private static final int stringLength = 10;
+
     private static String randomString() {
         String str = "";
         int length = random.nextInt(stringLength) + 1;
@@ -72,9 +74,9 @@ public class ConstantUtil {
         if (probability < 0.5) {
             int randomChar = getRandomNumberInRange(Character.MIN_VALUE, Character.MAX_VALUE);
             return Integer.toString(randomChar);
-        }else{
+        } else {
             int number = random.nextInt(elementsLength);
-            char randomChar =  elements.charAt(number);
+            char randomChar = elements.charAt(number);
             return Character.toString(randomChar);
         }
     }
@@ -84,7 +86,7 @@ public class ConstantUtil {
         if (probability < 0.5) {
             // random positive number.
             return random.nextInt(max); // 0 ~ max-1
-        }else{
+        } else {
             // random negative number.
             return random.nextInt(max) + min + 1; // min+1 ~ max + min
         }
@@ -101,7 +103,7 @@ public class ConstantUtil {
         float randomDouble = 0;
         if (probability < 0.5) {
             randomDouble = random.nextFloat() * Float.MAX_VALUE;
-        }else {
+        } else {
             randomDouble = random.nextFloat() * Float.MIN_VALUE;
         }
         return Float.toString(randomDouble);
@@ -112,7 +114,7 @@ public class ConstantUtil {
         double randomDouble = 0;
         if (probability < 0.5) {
             randomDouble = random.nextDouble() * Double.MAX_VALUE;
-        }else {
+        } else {
             randomDouble = random.nextDouble() * Double.MIN_VALUE;
         }
         return Double.toString(randomDouble);

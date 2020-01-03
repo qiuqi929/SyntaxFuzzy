@@ -79,8 +79,7 @@ public class DictionariesUtil {
 
     public static Operator findOperatorByType(String type) {
         List<Operator> operatorList = findOperatorsByType(type);
-        Operator operator = randomOperator(operatorList);
-        return operator;
+        return randomOperator(operatorList);
     }
 
     private static List<Operator> findOperatorsByType (String type) {

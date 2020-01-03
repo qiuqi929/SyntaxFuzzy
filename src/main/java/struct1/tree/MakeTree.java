@@ -41,7 +41,7 @@ public class MakeTree {
         return headNode;
     }
 
-    public static Operator declareMethod (Node parent, VariablePool variablePool) {
+    public static Operator declareMethod(Node parent, VariablePool variablePool) {
         // Random the Method Name and return Type. Package it into ONE Node.
         String methodName = RandomNameUtil.randomMethodName();
         String returnType = RandomTypeUtil.randomReturnType();
@@ -57,21 +57,17 @@ public class MakeTree {
             VariableUtil.handleVariable(parent, variable, variablePool);
         }
         // package the method as an operator
-        Operator operator = new Operator(returnType, rule, methodName);
-        // add it to the operatorPool
-        return operator;
+        return new Operator(returnType, rule, methodName);
     }
 
     /**
      * Consider: assign -> we don't need to care about the variable value. And the change of the value.
-     *                     But we need to print it! And sometimes the value maybe an operator such as "1+3".
-     *                     How can we put it in the tree? If we put in variable, the value may change.
-     *                     Maybe we can put it in the Node -> value.
-     *                     The constant has type & value. But variable only has value.
-     * @param nullParent
-     * @param upVariablePool
+     * But we need to print it! And sometimes the value maybe an operator such as "1+3".
+     * How can we put it in the tree? If we put in variable, the value may change.
+     * Maybe we can put it in the Node -> value.
+     * The constant has type & value. But variable only has value.
      */
-    public static void makeBlock (Node nullParent, VariablePool upVariablePool) {
+    public static void makeBlock(Node nullParent, VariablePool upVariablePool) {
         System.out.printf("----------------- begin to makeBlock %d ----------- \n", OperatorUtil.nestedLayer);
         // copy the variable list to a new variablePool
         VariablePool variablePool = new VariablePool(upVariablePool.getPoolList());
@@ -100,8 +96,6 @@ public class MakeTree {
 
     /**
      * Last child node for headNode
-     * @param returnType
-     * @param parent
      */
     private static void getReturnValue(String returnType, Node parent) {
         parent.addChild(new Node(returnType, ConstantUtil.randomConstantByType(returnType), parent));

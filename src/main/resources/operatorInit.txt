@@ -42,44 +42,40 @@ double
 double double
 %s + %s
 
+int
+int int
+%s * %s
+
+short
+short short
+%s * %s
+
+long
+long long
+%s * %s
+
+byte
+byte byte
+%s * %s
+
+char
+char char
+%s * %s
+
+float
+float float
+%s * %s
+
+double
+double double
+%s * %s
+
 String
 String String
 %s + %s
 
 int
 int int
-%s * %s
-
-short
-short short
-%s * %s
-
-long
-long long
-%s * %s
-
-byte
-byte byte
-%s * %s
-
-char
-char char
-%s * %s
-
-float
-float float
-%s * %s
-
-double
-double double
-%s * %s
-
-String
-String String
-%s * %s
-
-int
-int int
 %s - %s
 
 short
@@ -104,10 +100,6 @@ float float
 
 double
 double double
-%s - %s
-
-String
-String String
 %s - %s
 
 boolean
