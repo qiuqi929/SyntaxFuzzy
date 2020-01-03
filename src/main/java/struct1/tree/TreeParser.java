@@ -28,10 +28,6 @@ public class TreeParser {
 
     private static final String[] modifiers = new String[]{"public", "static"};
 
-    public static void main(String[] args) {
-        System.out.println(generateMethod());
-    }
-
     public static String generateMethod() {
         Node root = new Node(null);
         VariablePool pool = makeMethodTree(root);
@@ -66,7 +62,7 @@ public class TreeParser {
         return generateBlock(blockNode, pool, 1, false, root.getChildNode().get(0).getType());
     }
 
-    public static String generateBlock(Node root, VariablePool pool, int indent, boolean addBreak, String type) {
+    private static String generateBlock(Node root, VariablePool pool, int indent, boolean addBreak, String type) {
         StringBuilder res = new StringBuilder(" {\n");
         List<Node> children = root.getChildNode();
         for (int i = 1, size = children.size(); i < size; i++) {
@@ -184,10 +180,6 @@ public class TreeParser {
         return String.format(format, args);
     }
 
-    /**
-     * @param root the node need to be span
-     * @return variable pool
-     */
     private static VariablePool makeMethodTree(Node root) {
         VariablePool variablePool = new VariablePool();
         MakeTree.declareMethod(root, variablePool);
