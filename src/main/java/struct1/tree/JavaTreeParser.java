@@ -142,7 +142,8 @@ public class JavaTreeParser {
         if (v == null) {
             v = new Variable(returnType, RandomNameUtil.randomVariableName());
             pool.addElement(v);
-            res.append(returnType).append(' ');
+            if (!v.getType().equals("void"))
+                res.append(returnType).append(' ');
         }
         if ("void".equals(v.getType())) {
             res.append(generateStatement(root)).append(";");

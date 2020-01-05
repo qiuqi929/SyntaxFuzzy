@@ -5,6 +5,8 @@ import initial.Initialize;
 import org.junit.Before;
 import org.junit.Test;
 import struct.Operator;
+import struct.Rule;
+import utils.ConstantUtil;
 
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -46,10 +48,11 @@ public class JavaTreeParserTest {
     @Test
     public void testGenerateClass() throws IOException {
 
+        List<Operator> operatorList = Initialize.operatorPool.getPoolList();
         String template = "public class Main{\n" +
                 "\t\n" +
                 "\tpublic static void main(String[] args) {\n" +
-                "\t\t\n" +
+                "%s\n" +
                 "\t}\n" +
                 "\n" +
                 "%s\n" +
@@ -59,8 +62,26 @@ public class JavaTreeParserTest {
         for (int i = 0; i < 5; i++) {
             s.append(JavaTreeParser.generateMethod(1)).append('\n');
         }
+
+
+        StringBuilder finalS = new StringBuilder();
+        operatorList.stream()
+                .filter(o -> o.getFormat().contains("Method"))
+                .forEach(o -> {
+                    Rule rule = o.getRule();
+                    List<String> typeList = rule.getTypelist();
+                    Object[] args = new Object[typeList.size()];
+                    for (int i = 0, size = args.length; i < size; i++) {
+                        args[i] = ConstantUtil.randomConstantByType(typeList.get(i));
+                    }
+                    System.out.println(o.getFormat());
+                    String use = String.format(o.getFormat(), args);
+                    finalS.append("\t\t").append(use).append(";\n");
+                });
+
+
         PrintWriter printWriter = new PrintWriter("Main.java");
-        printWriter.println(String.format(template, s.toString()));
+        printWriter.println(String.format(template, finalS.toString(), s.toString()));
         printWriter.flush();
     }
 

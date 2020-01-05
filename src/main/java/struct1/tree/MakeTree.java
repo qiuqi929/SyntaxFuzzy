@@ -58,8 +58,9 @@ public class MakeTree {
             VariableUtil.handleVariable(parent, variable, variablePool);
         }
         // package the method as an operator
-
-        return new Operator(returnType, rule, buildMethodFormat(rule, methodName));
+        Operator operator = new Operator(returnType, rule, buildMethodFormat(rule, methodName));
+        operatorPool.addElement(operator);
+        return operator;
     }
 
     private static String buildMethodFormat(Rule rule, String methodName) {
@@ -73,6 +74,7 @@ public class MakeTree {
                 res.append("%s)");
             }
         }
+        if (typeList.size() == 0) res.append(')');
         return res.toString();
     }
 

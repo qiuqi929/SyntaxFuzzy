@@ -110,6 +110,18 @@ double
 double double
 %s - %s
 
+double
+double
+Math.sin(%s)
+
+double
+double
+Math.cos(%s)
+
+double
+double
+Math.sin(%s)
+
 boolean
 boolean boolean
 %s & %s
