@@ -20,7 +20,7 @@ int int
 
 short
 short short
-%s + %s
+(short) (%s + %s)
 
 long
 long long
@@ -28,11 +28,11 @@ long long
 
 byte
 byte byte
-%s + %s
+(byte) (%s + %s)
 
 char
 char char
-%s + %s
+(char) (%s + %s)
 
 float
 float float
@@ -48,7 +48,7 @@ int int
 
 short
 short short
-%s * %s
+(short) (%s * %s)
 
 long
 long long
@@ -56,11 +56,11 @@ long long
 
 byte
 byte byte
-%s * %s
+(byte) (%s * %s)
 
 char
 char char
-%s * %s
+(char) (%s * %s)
 
 float
 float float
@@ -72,7 +72,7 @@ double double
 
 String
 String String
-%s + %s
+(%s + %s)
 
 int
 int int
@@ -88,7 +88,7 @@ String String
 
 short
 short short
-%s - %s
+(short) (%s - %s)
 
 long
 long long
@@ -96,11 +96,11 @@ long long
 
 byte
 byte byte
-%s - %s
+(byte) (%s - %s)
 
 char
 char char
-%s - %s
+(char) (%s - %s)
 
 float
 float float
@@ -121,6 +121,10 @@ Math.cos(%s)
 double
 double
 Math.sin(%s)
+
+double
+double
+Math.abs(%s)
 
 boolean
 boolean boolean

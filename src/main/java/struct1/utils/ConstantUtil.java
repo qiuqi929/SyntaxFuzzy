@@ -34,10 +34,10 @@ public class ConstantUtil {
                 constant = randomChar();
                 break;
             case "long":
-                constant = randomLong();
+                constant = randomLong() + "L";
                 break;
             case "float":
-                constant = randomFloat();
+                constant = randomFloat() + "F";
                 break;
             case "double":
                 constant = randomDouble();
@@ -46,7 +46,7 @@ public class ConstantUtil {
                 constant = randomBoolean();
                 break;
             case "String":
-                constant = "\"" + randomString() + "\"";
+                constant = randomString();
                 break;
         }
         return constant;
@@ -59,12 +59,12 @@ public class ConstantUtil {
 
     private static String randomShort() {
         int randomShort = getRandomNumberInRange(Short.MIN_VALUE, Short.MAX_VALUE);
-        return Integer.toString(randomShort);
+        return "(short) (" + randomShort + ")";
     }
 
     private static String randomByte() {
         int randomByte = getRandomNumberInRange(Byte.MIN_VALUE, Byte.MAX_VALUE);
-        return Integer.toString(randomByte);
+        return "(byte) (" + randomByte + ")";
     }
 
     private static final int stringLength = 10;
@@ -74,16 +74,16 @@ public class ConstantUtil {
         int length = random.nextInt(stringLength) + 1;
         for (int i = 0; i < length; i++) {
             int number = random.nextInt(elementsLength);
-            str.append(String.valueOf(elements.charAt(number)));
+            str.append(elements.charAt(number));
         }
-        return str.toString();
+        return "\"" + str.toString() + "\"";
     }
 
     private static String randomChar() {
         double probability = random.nextDouble();
         if (probability < 0.5) {
             int randomChar = getRandomNumberInRange(Character.MIN_VALUE, Character.MAX_VALUE);
-            return "" + randomChar;
+            return "(char) (" + randomChar + ")";
         } else {
             int number = random.nextInt(elementsLength);
             char randomChar = elements.charAt(number);

@@ -1,5 +1,6 @@
 package tree;
 
+import initial.Initialize;
 import pool.VariablePool;
 import struct.Node;
 import struct.Operator;
@@ -15,9 +16,12 @@ public class JavaTreeParser {
 
     private static final String[] modifiers = new String[]{"public", "static"};
 
+    private static Operator generatedOperator = null;
+
     public static String generateMethod(int indent) {
         Node root = new Node(null);
         VariablePool pool = makeMethodTree(root);
+        Initialize.operatorPool.addElement(generatedOperator);
         return generateMethodHead(root, indent) + generateMethodBody(root, pool, indent + 1);
     }
 
@@ -147,6 +151,8 @@ public class JavaTreeParser {
         }
         if ("void".equals(v.getType())) {
             res.append(generateStatement(root)).append(";");
+        } else if ("boolean".equals(v.getType()) || "long".equals(v.getType()) || "int".equals(v.getType()) || "String".equals(v.getType())) {
+            res.append(v.getName()).append(" = ").append(generateStatement(root)).append(";");
         } else {
             res.append(v.getName()).append(" = ").append("(").append(v.getType()).append(")(").append(generateStatement(root)).append(");");
         }
@@ -176,7 +182,7 @@ public class JavaTreeParser {
 
     private static VariablePool makeMethodTree(Node root) {
         VariablePool variablePool = new VariablePool();
-        MakeTree.declareMethod(root, variablePool);
+        generatedOperator = MakeTree.declareMethod(root, variablePool);
         Node nullNode = new Node(root);
         root.addChild(nullNode);
         return MakeTree.makeBlock(nullNode, variablePool);
