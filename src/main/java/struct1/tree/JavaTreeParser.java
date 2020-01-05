@@ -15,16 +15,17 @@ public class JavaTreeParser {
 
     private static final String[] modifiers = new String[]{"public", "static"};
 
-    public static String generateMethod() {
+    public static String generateMethod(int indent) {
         Node root = new Node(null);
         VariablePool pool = makeMethodTree(root);
-        return generateMethodHead(root) + generateMethodBody(root, pool);
+        return generateMethodHead(root, indent) + generateMethodBody(root, pool, indent + 1);
     }
 
-    private static String generateMethodHead(Node root) {
+    private static String generateMethodHead(Node root, int indent) {
         StringBuilder res = new StringBuilder();
         List<Node> children = root.getChildNode();
         Node methodNode = children.get(0);
+        for (int i = 0; i < indent; i++) res.append('\t');
         for (String str : modifiers) res.append(str).append(' ');
         res.append(methodNode.getType()).append(' ').append(methodNode.getValue()).append(" (");
         if (children.size() == 2) {
@@ -43,10 +44,10 @@ public class JavaTreeParser {
         return res.toString();
     }
 
-    private static String generateMethodBody(Node root, VariablePool pool) {
+    private static String generateMethodBody(Node root, VariablePool pool, int indent) {
         List<Node> children = root.getChildNode();
         Node blockNode = children.get(children.size() - 1);
-        return generateBlock(blockNode, pool, 1, false, root.getChildNode().get(0).getType());
+        return generateBlock(blockNode, pool, indent, false, root.getChildNode().get(0).getType());
     }
 
     private static String generateBlock(Node root, VariablePool pool, int indent, boolean addBreak, String type) {
@@ -144,7 +145,7 @@ public class JavaTreeParser {
             res.append(returnType).append(' ');
         }
         if ("void".equals(v.getType())) {
-            res.append(v.getName()).append(" = ").append(generateStatement(root)).append(";");
+            res.append(generateStatement(root)).append(";");
         } else {
             res.append(v.getName()).append(" = ").append("(").append(v.getType()).append(")(").append(generateStatement(root)).append(");");
         }
