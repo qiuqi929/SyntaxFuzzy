@@ -14,29 +14,40 @@ public class ConstantUtil {
 
     /**
      * Random a constant (String) by type.
+     *
      * @param type
      * @return
      */
-    public static String randomConstantByType (String type) {
+    public static String randomConstantByType(String type) {
         String constant = null;
-        if (type.equals("int")) {
-            constant = randomInt();
-        }else if (type.equals("short")) {
-            constant = randomShort();
-        }else if (type.equals("byte")) {
-            constant = randomByte();
-        }else if (type.equals("char")) {
-            constant = randomChar();
-        }else if (type.equals("long")) {
-            constant = randomLong();
-        }else if (type.equals("float")) {
-            constant = randomFloat();
-        }else if (type.equals("double")) {
-            constant = randomDouble();
-        }else if (type.equals("boolean")) {
-            constant = randomBoolean();
-        }else if (type.equals("String")) {
-            constant = randomString();
+        switch (type) {
+            case "int":
+                constant = randomInt();
+                break;
+            case "short":
+                constant = randomShort();
+                break;
+            case "byte":
+                constant = randomByte();
+                break;
+            case "char":
+                constant = randomChar();
+                break;
+            case "long":
+                constant = randomLong() + "L";
+                break;
+            case "float":
+                constant = randomFloat() + "F";
+                break;
+            case "double":
+                constant = randomDouble();
+                break;
+            case "boolean":
+                constant = randomBoolean();
+                break;
+            case "String":
+                constant = randomString();
+                break;
         }
         return constant;
     }
@@ -48,35 +59,44 @@ public class ConstantUtil {
 
     private static String randomShort() {
         int randomShort = getRandomNumberInRange(Short.MIN_VALUE, Short.MAX_VALUE);
-        return Integer.toString(randomShort);
+        return "(short) (" + randomShort + ")";
     }
 
-    private static String randomByte () {
+    private static String randomByte() {
         int randomByte = getRandomNumberInRange(Byte.MIN_VALUE, Byte.MAX_VALUE);
-        return Integer.toString(randomByte);
+        return "(byte) (" + randomByte + ")";
     }
 
-    private static final int  stringLength = 10;
+    private static final int stringLength = 10;
+
     private static String randomString() {
-        String str = "";
+        StringBuilder str = new StringBuilder();
         int length = random.nextInt(stringLength) + 1;
         for (int i = 0; i < length; i++) {
             int number = random.nextInt(elementsLength);
-            str += String.valueOf(elements.charAt(number));
+            str.append(elements.charAt(number));
         }
-        return str;
+        return "\"" + str.toString() + "\"";
     }
 
     private static String randomChar() {
         double probability = random.nextDouble();
         if (probability < 0.5) {
             int randomChar = getRandomNumberInRange(Character.MIN_VALUE, Character.MAX_VALUE);
-            return Integer.toString(randomChar);
-        }else{
+            return "(char) (" + randomChar + ")";
+        } else {
             int number = random.nextInt(elementsLength);
-            char randomChar =  elements.charAt(number);
-            return Character.toString(randomChar);
+            char randomChar = elements.charAt(number);
+            return "'" + randomChar + "'";
         }
+    }
+
+    public static boolean inKeywords(String word) {
+        String[] keywords = new String[]{"if", "else", "while", "try", "catch"};
+        for (String keyword : keywords) {
+            if (keyword.equals(word)) return true;
+        }
+        return false;
     }
 
     private static int getRandomNumberInRange(int min, int max) {
@@ -84,7 +104,7 @@ public class ConstantUtil {
         if (probability < 0.5) {
             // random positive number.
             return random.nextInt(max); // 0 ~ max-1
-        }else{
+        } else {
             // random negative number.
             return random.nextInt(max) + min + 1; // min+1 ~ max + min
         }
@@ -101,7 +121,7 @@ public class ConstantUtil {
         float randomDouble = 0;
         if (probability < 0.5) {
             randomDouble = random.nextFloat() * Float.MAX_VALUE;
-        }else {
+        } else {
             randomDouble = random.nextFloat() * Float.MIN_VALUE;
         }
         return Float.toString(randomDouble);
@@ -112,7 +132,7 @@ public class ConstantUtil {
         double randomDouble = 0;
         if (probability < 0.5) {
             randomDouble = random.nextDouble() * Double.MAX_VALUE;
-        }else {
+        } else {
             randomDouble = random.nextDouble() * Double.MIN_VALUE;
         }
         return Double.toString(randomDouble);

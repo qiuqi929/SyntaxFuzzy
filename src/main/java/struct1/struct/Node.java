@@ -25,16 +25,14 @@ public class Node {
         this.parent = parent;
     }
 
-    public void addChild (Node child) {
+    public void addChild(Node child) {
         childNode.add(child);
     }
 
     /**
      * Constant value Node
-     * @param value
-     * @param parent
      */
-    public Node (String type, String value, Node parent) {
+    public Node(String type, String value, Node parent) {
         this.type = type;
         this.value = value;
         this.parent = parent;
@@ -42,22 +40,23 @@ public class Node {
 
     /**
      * Operator Node
-     * @param operator
-     * @param parent
      */
-    public Node (Operator operator, Node parent) {
+    public Node(Operator operator, Node parent) {
         this.operator = operator;
         this.parent = parent;
     }
 
     /**
      * Variable Node
+     *
      * @param variable
      * @param parent
      */
-    public Node (Variable variable, Node parent) {
+    public Node(Variable variable, Node parent) {
         this.variable = variable;
         this.parent = parent;
     }
 
 }
+
+

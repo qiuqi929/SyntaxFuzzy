@@ -1,0 +1,59 @@
+void
+
+block
+
+void
+boolean block
+while
+
+void
+boolean block else block
+if
+
+int
+int int
+%s + %s
+
+double
+double double
+%s + %s
+
+int
+int int
+%s * %s
+
+double
+double double
+%s * %s
+
+String
+String String
+%s + %s
+
+int
+int int
+%s - %s
+
+double
+double double
+%s - %s
+
+boolean
+boolean boolean
+%s & %s
+
+boolean
+boolean boolean
+%s and %s
+
+boolean
+boolean boolean
+%s or %s
+
+boolean
+boolean boolean
+%s | %s
+
+boolean
+boolean boolean
+%s ^ %s

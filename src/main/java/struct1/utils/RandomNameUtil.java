@@ -15,31 +15,33 @@ public class RandomNameUtil {
     private static final int variableNameLength = 7;
 
     /**
-     * Random a method name.
-     * @return
+     * @return Random a method name.
      */
-    public static String randomMethodName(){
-        String methodName  = "";
+    public static String randomMethodName() {
+        StringBuilder methodName = new StringBuilder();
         for (int i = 0; i < methodNameLength; i++) {
-            int number = random.nextInt(52);
-            methodName += String.valueOf(elements.charAt(number));
+            int number = random.nextInt(elements.length());
+            methodName.append(elements.charAt(number));
         }
-        methodName = methodName + "Method";
-        return methodName;
+        methodName.append("Method");
+        return methodName.toString();
     }
 
     /**
-     * Random a variable name.
-     * @return
+     * @return Random a variable name.
      */
 
     public static String randomVariableName() {
-        String variableName = "";
+        StringBuilder variableName = new StringBuilder();
         for (int i = 0; i < variableNameLength; i++) {
-            int number = random.nextInt(52);
-            variableName += String.valueOf(elements.charAt(number));
+            int number = random.nextInt(elements.length());
+            variableName.append(elements.charAt(number));
         }
-        return variableName;
+        return variableName.toString();
+    }
+
+    public static int nextInt(int bound) {
+        return random.nextInt(bound);
     }
 
 }

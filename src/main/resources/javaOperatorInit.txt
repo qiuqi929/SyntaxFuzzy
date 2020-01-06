@@ -20,7 +20,7 @@ int int
 
 short
 short short
-%s + %s
+(short) (%s + %s)
 
 long
 long long
@@ -28,11 +28,11 @@ long long
 
 byte
 byte byte
-%s + %s
+(byte) (%s + %s)
 
 char
 char char
-%s + %s
+(char) (%s + %s)
 
 float
 float float
@@ -40,10 +40,6 @@ float float
 
 double
 double double
-%s + %s
-
-String
-String String
 %s + %s
 
 int
@@ -52,7 +48,7 @@ int int
 
 short
 short short
-%s * %s
+(short) (%s * %s)
 
 long
 long long
@@ -60,11 +56,11 @@ long long
 
 byte
 byte byte
-%s * %s
+(byte) (%s * %s)
 
 char
 char char
-%s * %s
+(char) (%s * %s)
 
 float
 float float
@@ -76,15 +72,23 @@ double double
 
 String
 String String
-%s * %s
+(%s + %s)
 
 int
 int int
 %s - %s
 
+void
+String
+System.out.println(%s)
+
+boolean
+String String
+%s.equals(%s)
+
 short
 short short
-%s - %s
+(short) (%s - %s)
 
 long
 long long
@@ -92,11 +96,11 @@ long long
 
 byte
 byte byte
-%s - %s
+(byte) (%s - %s)
 
 char
 char char
-%s - %s
+(char) (%s - %s)
 
 float
 float float
@@ -106,9 +110,21 @@ double
 double double
 %s - %s
 
-String
-String String
-%s - %s
+double
+double
+Math.sin(%s)
+
+double
+double
+Math.cos(%s)
+
+double
+double
+Math.sin(%s)
+
+double
+double
+Math.abs(%s)
 
 boolean
 boolean boolean

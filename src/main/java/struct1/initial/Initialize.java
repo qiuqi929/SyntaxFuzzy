@@ -6,10 +6,7 @@ import struct.Operator;
 import struct.Rule;
 
 import java.io.*;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-import java.util.Random;
+import java.util.*;
 
 
 public class Initialize {
@@ -34,35 +31,36 @@ public class Initialize {
     }
 
     public static void initialOperatorPool() throws IOException {
-        String filename = "C:\\Users\\qiuqi\\OneDrive\\Java\\SyntaxFuzzy\\src\\main\\java\\struct1\\initial\\operatorInit.txt";
-        BufferedReader br = new BufferedReader(new FileReader(filename));
-        String line[] = new String[4];
+        initialOperatorPool("java");
+    }
+
+    public static void initialOperatorPool(String language) throws IOException {
+        String initFile = "";
+        if ("java".equals(language)) initFile = "javaOperatorInit.txt";
+        else initFile = "pythonOperatorInit.txt";
+        BufferedReader br = new BufferedReader(new InputStreamReader(Objects.requireNonNull(Initialize.class.getClassLoader().getResourceAsStream(initFile))));
+        String[] line = new String[4];
         int readLineNum = 0;
 
-        while((line[readLineNum] = br.readLine()) != null){
+        while ((line[readLineNum] = br.readLine()) != null) {
             if (readLineNum == 3) {
                 readLineNum = 0;
                 String returnType = line[0];
                 String[] types = line[1].split(" ");
-                List<String> typelist = new ArrayList<>();
-                for (int i = 0; i < types.length; i++) {
-                    typelist.add(types[i]);
-                }
-                Rule rule = new Rule(typelist);
+                List<String> typeList = new ArrayList<>(Arrays.asList(types));
+                Rule rule = new Rule(typeList);
                 String format = line[2];
-                if(format.equals("block")){
+                if (format.equals("block")) {
                     rule = null;
                 }
-                Operator operator = new Operator(returnType,rule,format);
+                Operator operator = new Operator(returnType, rule, format);
                 operatorPool.addElement(operator);
-            }else {
+            } else {
                 readLineNum++;
             }
         }
 
     }
-
-
 
 
 }

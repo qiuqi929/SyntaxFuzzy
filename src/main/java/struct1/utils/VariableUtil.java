@@ -12,16 +12,17 @@ public class VariableUtil {
 
     private static final Random random = Initialize.random;
 
-    private static Variable makeVariable (String type, String name) {
+    private static Variable makeVariable(String type, String name) {
         return new Variable(type, name);
     }
 
-    private static void addVariableToPool (VariablePool variablePool, Variable variable) {
+    private static void addVariableToPool(VariablePool variablePool, Variable variable) {
         variablePool.addElement(variable);
     }
 
     /**
      * Random a variable. Only declare it!
+     *
      * @return
      */
     public static Variable randomVariable() {
@@ -29,15 +30,11 @@ public class VariableUtil {
         String name = RandomNameUtil.randomVariableName();
         String type = RandomTypeUtil.randomVariableType();
         // return as a variable.
-        Variable newVariable = makeVariable(type, name);
-        return newVariable;
+        return makeVariable(type, name);
     }
 
     /**
      * Handle a variable: Connect to parent node and put it into the variablePool!
-     * @param parent
-     * @param variable
-     * @param variablePool
      */
     public static Node handleVariable(Node parent, Variable variable, VariablePool variablePool) {
         // package into Node and connect to parent.
@@ -58,7 +55,7 @@ public class VariableUtil {
         if (probability < 1) {
             String constant = ConstantUtil.randomConstantByType(variableNode.getVariable().getType());
             variableNode.setValue(constant);
-        }else{
+        } else {
             Operator operator = DictionariesUtil.findOperatorByType(variableNode.getVariable().getType());
             // TODO: print the operator string -> A sub-tree of an operator.
         }
