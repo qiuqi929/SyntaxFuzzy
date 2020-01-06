@@ -53,8 +53,9 @@ public class OperatorUtil {
      */
 
     public static int nestedLayer = 1;
+    private static final int BLOCK_LIMIT = 100;
     public static void handleOperator(Node nullParent, Operator operator, VariablePool variablePool) {
-        if(nestedLayer > 4){
+        if(nestedLayer > BLOCK_LIMIT){
             return;
         }
         // add operator as a child
